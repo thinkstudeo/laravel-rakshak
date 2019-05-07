@@ -3,7 +3,7 @@
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/thinkstudeo/laravel-rakshak.svg?style=flat-square)](https://packagist.org/packages/thinkstudeo/laravel-rakshak)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![Build Status](https://img.shields.io/travis/thinkstudeo/laravel-rakshak/master.svg?style=flat-square)](https://travis-ci.org/thinkstudeo/laravel-rakshak)
-[![StyleCI](https://styleci.io/repos/183053426/shield)](https://styleci.io/repos/183053426)
+[![StyleCI](https://styleci.io/repos/185467188/shield)](https://styleci.io/repos/185467188)
 [![Total Downloads](https://img.shields.io/packagist/dt/thinkstudeo/laravel-rakshak.svg?style=flat-square)](https://packagist.org/packages/thinkstudeo/laravel-rakshak)
 
 This package extends the authentication and authorization in a Lavarel application. 

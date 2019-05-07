@@ -1,0 +1,41 @@
+<?php
+
+namespace App\Notifications;
+
+use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Notification;
+use Illuminate\Notifications\Messages\MailMessage;
+
+class SendRegistrationWelcomeMail extends Notification
+{
+    use Queueable;
+
+    /**
+     * Get the notification's delivery channels.
+     *
+     * @param  mixed  $notifiable
+     * @return array
+     */
+    public function via($notifiable)
+    {
+        return ['mail'];
+    }
+
+    /**
+     * Get the mail representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return \Illuminate\Notifications\Messages\MailMessage
+     */
+    public function toMail($notifiable)
+    {
+        return (new MailMessage)
+                    ->subject("{$notifiable->name}, you have successfully registered.")
+                    ->from(config('mail.from.address'), config('mail.from.name'))
+                    ->greeting("Welcome {$notifiable->name}!")
+                    ->line('We are excited to have you on board.')
+                    ->line('Thank you for registering with us.')                    
+                    ->line('Yours Securely')
+                    ->line('Team ' . config('app.name'));
+    }
+}

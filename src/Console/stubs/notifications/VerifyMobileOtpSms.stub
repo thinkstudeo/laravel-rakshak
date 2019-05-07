@@ -1,0 +1,38 @@
+<?php
+
+namespace {{namespace}}Notifications\Guardian;
+
+use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Notification;
+use NotificationChannels\Textlocal\TextlocalChannel;
+use NotificationChannels\Textlocal\TextlocalMessage;
+
+class VerifyMobileOtpSms extends Notification
+{
+    use Queueable;
+
+    /**
+     * Get the notification's delivery channels.
+     *
+     * @param  mixed  $notifiable
+     * @return array
+     */
+    public function via($notifiable)
+    {
+        return [TextlocalChannel::class];
+    }
+
+    /**
+     * Get the mail representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return \Illuminate\Notifications\Messages\MailMessage
+     */
+    public function toTextlocal($notifiable)
+    {
+        return (new TextlocalMessage)
+            ->transactional()
+            ->content(sprintf(config('guardian.textlocal.login.otp_template'), $notifiable->otp_token))
+            ->from(config('services.textlocal.transactional.from'));
+    }
+}

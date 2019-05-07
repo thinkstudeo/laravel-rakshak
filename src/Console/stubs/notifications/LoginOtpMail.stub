@@ -1,0 +1,40 @@
+<?php
+
+namespace {{namespace}}Notifications\Guardian;
+
+use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Notification;
+use Illuminate\Notifications\Messages\MailMessage;
+
+class LoginOtpMail extends Notification
+{
+    use Queueable;
+
+    /**
+     * Get the notification's delivery channels.
+     *
+     * @param  mixed  $notifiable
+     * @return array
+     */
+    public function via($notifiable)
+    {
+        return ['mail'];
+    }
+
+    /**
+     * Get the mail representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return \Illuminate\Notifications\Messages\MailMessage
+     */
+    public function toMail($notifiable)
+    {
+        return (new MailMessage)
+            ->subject('Please verify that it’s you.')
+            ->from('secure@thinkstudeo.com', 'Thinkstudeo')
+            ->line('If you are attempting to sign-in, please use the following code to confirm your identity:')
+            ->line('otp here')
+            ->line('Yours Securely')
+            ->line('Team ' . config('app.name'));
+    }
+}

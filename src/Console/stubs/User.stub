@@ -1,0 +1,61 @@
+<?php
+
+namespace {{namespace}};
+
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Thinkstudeo\Guardian\Traits\HasGuardian;
+
+class User extends Authenticatable implements MustVerifyEmail
+{
+    use Notifiable, HasGuardian;
+
+    protected $table = 'users';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name', 'email', 'password', 'remember_token', 'mobile', 'username', 'otp_token', 'otp_expiry', 'otp_channel', 'status'
+    ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
+
+    /**
+     * The attributes which are to be cast as dates.
+     *
+     * @var array
+     */
+    protected $dates = ['expiry'];
+
+    /**
+     * Cast the otp_token attribute as integer
+     *
+     * @param string|int $value
+     * @return int
+     */
+    public function getOtpTokenAttribute($value)
+    {
+        return intVal($value);
+    }
+
+    /**
+     * The path to the user.
+     *
+     * @return string
+     */
+    public function path()
+    {
+        return "users/{$this->id}";
+    }
+}

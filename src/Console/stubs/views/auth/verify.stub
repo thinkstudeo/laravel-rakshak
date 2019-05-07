@@ -1,0 +1,26 @@
+@extends('layouts.app')
+
+@section('content')
+
+<div class="w-full bg-white flex justify-center items-start h-full pt-24">
+    <div class="lg:w-1/2 lg:max-w-sm flex flex-col shadow-md border-t-8 border-purple rounded p-8">
+
+        <div class="mb-10">
+            <h1 class="text-2xl font-bold mb-2">{{ __('Verify Your Email Address') }}</h1>
+        </div>
+
+        <div class="mb-8 border-l-8 border-purple bg-purple-lightest text-purple py-4 px-6">
+            {{ __('A fresh verification link has been sent to your email address.') }}
+        </div>
+        
+        <div class="mt-8">
+            <p class="text-grey-dark text-sm mb-3">{{ __('Before proceeding, please check your email for a verification link.') }}</p>
+            <p class="text-grey-dark text-sm">
+                {{ __('If you did not receive the email') }}, <a href="{{ route('verification.resend') }}" class="text-purple font-medium">{{ __('click here to request another') }}</a>.
+            </p>
+        </div>
+
+    </div>
+</div>
+
+@endsection

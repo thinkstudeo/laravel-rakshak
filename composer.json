@@ -1,0 +1,68 @@
+{
+  "name": "thinkstudeo/guardian",
+  "description": "An authentication library for Laravel.",
+  "keywords": [
+    "laravel",
+    "authentication",
+    "authorization",
+    "two factor authentication"
+  ],
+  "require": {
+    "php": ">=7.1.3",
+    "doctrine/dbal": "^2.9",
+    "guzzlehttp/guzzle": "^6.3",
+    "illuminate/support": "5.7.*|5.8.*|5.9.*",
+    "moontoast/math": "^1.1",
+    "thinkstudeo/textlocal-notification-channel": "^1.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^7.5",
+    "orchestra/testbench": "3.7.*|3.8.*",
+    "orchestra/database": "3.7.*|3.8.*",
+    "beyondcode/laravel-dump-server": "^1.0",
+    "filp/whoops": "^2.0",
+    "fzaninotto/faker": "^1.4",
+    "mockery/mockery": "^1.0",
+    "nunomaduro/collision": "^2.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Thinkstudeo\\Guardian\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Thinkstudeo\\Guardian\\Tests\\": "tests/",
+      "App\\": "vendor/orchestra/testbench-core/laravel/app/"
+    },
+    "files": [
+      "tests/helpers/factory.php",
+      "tests/helpers/paths.php"
+    ]
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0-dev"
+    },
+    "laravel": {
+      "providers": [
+        "Thinkstudeo\\Guardian\\GuardianServiceProvider"
+      ],
+      "alias": {
+        "Guardian": "Thinkstudeo\\Guardian\\Guardian"
+      }
+    }
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "license": "MIT",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "authors": [
+    {
+      "name": "Neerav Pandya",
+      "email": "neerav@thinkstudeo.com"
+    }
+  ]
+}

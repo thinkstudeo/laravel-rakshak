@@ -1,0 +1,43 @@
+@extends('layouts.app')
+
+@section('content')
+
+<div class="w-full bg-white flex justify-center items-start h-full pt-24">
+    <div class="lg:w-1/2 lg:max-w-sm flex flex-col shadow-md border-t-8 border-purple rounded">
+        <form method="POST" action="{{ route('password.email') }}" class="p-8 bg-grey-lighter">
+            @csrf
+
+            <div class="mb-10">
+                <h1 class="text-2xl font-bold">{{ __('Want to Reset Password') }}</h1>
+                @if (session('status'))
+                    <div class=" mt-2 border-l-8 border-purple bg-purple-lightest text-purple text-md" role="alert">
+                        {{ session('status') }}
+                    </div>
+                @endif
+            </div>
+
+            <div class="mb-10 flex flex-col">
+{{--                <label for="email" class="text-grey-dark text-md mb-3">Email Address</label>--}}
+                <input
+                    name="email"
+                    type="email"
+                    class="text-grey-darker px-4 py-4 border-b border-grey-light rounded bg-grey-lightest @error('email') border-red-darker @enderror"
+                    value="{{ old('email') }}"
+                    placeholder="Your registered email address"
+                    required
+                    autofocus>
+                @error('email')
+                <div class="text-sm text-red">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="flex justify-end items-center mt-12">
+                <button type="submit" class="py-2 px-6 bg-purple hover:bg-purple-dark text-purple-lightest rounded shadow transition-03">
+                    {{ __('Send Password Reset Link') }}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@endsection

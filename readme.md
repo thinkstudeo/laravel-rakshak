@@ -4,6 +4,8 @@
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![Build Status](https://img.shields.io/travis/thinkstudeo/laravel-rakshak/master.svg?style=flat-square)](https://travis-ci.org/thinkstudeo/laravel-rakshak)
 [![StyleCI](https://styleci.io/repos/185467188/shield)](https://styleci.io/repos/185467188)
+[![Quality Score](https://img.shields.io/scrutinizer/g/thinkstudeo/laravel-rakshak.svg?style=flat-square)](https://scrutinizer-ci.com/g/thinkstudeo/laravel-rakshak)
+[![SymfonyInsight](https://insight.symfony.com/projects/1e9ac532-ca35-4249-8800-2e23b706ced7/mini.svg)](https://insight.symfony.com/projects/1e9ac532-ca35-4249-8800-2e23b706ced7)
 [![Total Downloads](https://img.shields.io/packagist/dt/thinkstudeo/laravel-rakshak.svg?style=flat-square)](https://packagist.org/packages/thinkstudeo/laravel-rakshak)
 
 This package extends the authentication and authorization in a Lavarel application. 

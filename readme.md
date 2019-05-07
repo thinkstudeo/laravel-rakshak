@@ -291,15 +291,25 @@ Route: `/rakshak/roles/create` will provide the create new role form
 
 Similarly the corresponding routes for **Abilities** are also provided for easy crud operations.
 
+All package views are published to `resources/views/vendor/rakshak` directory.
+
 ### Route Middleware
 A route middleware `role` is registered by the package. 
 
 ```php
 //Protect the route and make it accessible only to users having hr_manager role.
 Route::get('/some-route', 'SomeController@action')->middleware('role:hr_manager');
+```
 
-//Protect the route and make it accessible only to users having hr_manager role or the super user.
-Route::post('/another-route', 'AnotherController@action')->middleware('role:hr_manager|super');
+To protect the routes with valid opt, use the `rakshak.2fa` middleware.
+
+Once Two Factor Authentication is enabled, and `rakshak.2fa` middleware is applied to any route,
+it will check for a valid otp associated with the user.
+
+Once the generated otp is sent to the user and user verifies the login with otp it will stay verified till session lifetime.
+```php
+//Protect the route to check for valid otp token.
+Route::post('/another-route', 'AnotherController@action')->middleware('rakshak.2fa');
 ```
 
 ### Blade Directives

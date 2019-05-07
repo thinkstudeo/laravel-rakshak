@@ -2,11 +2,10 @@
 
 namespace Thinkstudeo\Rakshak\Tests;
 
-use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Thinkstudeo\Rakshak\Rakshak;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
-use Thinkstudeo\Rakshak\Rakshak;
-use Illuminate\Support\Facades\Artisan;
+use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class TestsServiceProvider extends ServiceProvider
 {
@@ -32,6 +31,6 @@ class TestsServiceProvider extends ServiceProvider
 
         Rakshak::routes();
 
-        file_put_contents(app_path('Http/Controllers/Controller.php'), file_get_contents(__DIR__ . '/stubs/Controller.stub'));
+        file_put_contents(app_path('Http/Controllers/Controller.php'), file_get_contents(__DIR__.'/stubs/Controller.stub'));
     }
 }

@@ -78,7 +78,7 @@ class ManageRolesTest extends TestCase
         $ability2 = create(Ability::class, ['name' => 'ability_2']);
 
         $data = array_merge($role->toArray(), [
-            'abilities' => [$ability1->toArray(), $ability2->toArray()]
+            'abilities' => [$ability1->toArray(), $ability2->toArray()],
         ]);
         // dd($data);
         $this->postJson(route('rakshak.roles.store'), $data)
@@ -107,7 +107,7 @@ class ManageRolesTest extends TestCase
     {
         $role = create(Role::class);
 
-        $role->name        = 'Changed Name';
+        $role->name = 'Changed Name';
         $role->description = 'Updated description.';
 
         $this->patchJson(route('rakshak.roles.update', $role->id), $role->toArray())
@@ -120,9 +120,9 @@ class ManageRolesTest extends TestCase
     /** @test */
     public function authorized_users_can_update_abilities_associated_with_a_role()
     {
-        $role     = create(Role::class);
+        $role = create(Role::class);
         $ability1 = create(Ability::class, ['name' => 'ability_1']);
-        $data     = array_merge($role->toArray(), ['abilities' => [$ability1->toArray()]]);
+        $data = array_merge($role->toArray(), ['abilities' => [$ability1->toArray()]]);
 
         $r = $this->patchJson(route('rakshak.roles.update', $role->id), $data)
             ->assertStatus(200);
@@ -130,13 +130,13 @@ class ManageRolesTest extends TestCase
         $this->assertTrue($role->fresh()->abilities->first()->name === $ability1->name);
 
         $ability2 = create(Ability::class);
-        $data     = array_merge($role->toArray(), ['abilities' => [$ability2->toArray()]]);
+        $data = array_merge($role->toArray(), ['abilities' => [$ability2->toArray()]]);
 
         $this->patchJson(route('rakshak.roles.update', $role->id), $data)->assertStatus(200);
         $this->assertCount(1, $role->fresh()->abilities);
         $this->assertTrue($role->fresh()->abilities->first()->name === $ability2->name);
 
-        $data     = array_merge($role->toArray(), ['abilities' => [$ability1->toArray(), $ability2->toArray()]]);
+        $data = array_merge($role->toArray(), ['abilities' => [$ability1->toArray(), $ability2->toArray()]]);
 
         $this->patchJson(route('rakshak.roles.update', $role->id), $data)->assertStatus(200);
         $this->assertCount(2, $role->fresh()->abilities);
@@ -160,7 +160,7 @@ class ManageRolesTest extends TestCase
     public function a_role_cannot_be_created_without_a_name()
     {
         $role = make(Role::class, [
-            'name' => null
+            'name' => null,
         ]);
         $this->postJson(route('rakshak.roles.store'), $role->toArray())
             ->assertStatus(422)
@@ -172,7 +172,7 @@ class ManageRolesTest extends TestCase
     public function it_requires_a_name_atleast_3_characters_long()
     {
         $role = make(Role::class, [
-            'name' => 'ab'
+            'name' => 'ab',
         ]);
 
         $this->postJson(route('rakshak.roles.store'), $role->toArray())
@@ -185,7 +185,7 @@ class ManageRolesTest extends TestCase
     public function the_name_for_the_role_must_be_a_string()
     {
         $role = make(Role::class, [
-            'name' => 1234
+            'name' => 1234,
         ]);
 
         $this->postJson(route('rakshak.roles.store'), $role->toArray())
@@ -210,7 +210,7 @@ class ManageRolesTest extends TestCase
     {
         $this->withoutExceptionHandling();
         $role = make(Role::class, [
-            'name' => 'Super User'
+            'name' => 'Super User',
         ]);
 
         $this->postJson(route('rakshak.roles.store'), $role->toArray())
@@ -222,7 +222,7 @@ class ManageRolesTest extends TestCase
     public function it_cannot_be_created_without_a_description()
     {
         $role = make(Role::class, [
-            'description' => null
+            'description' => null,
         ]);
 
         $this->postJson(route('rakshak.roles.store'), $role->toArray())
@@ -235,7 +235,7 @@ class ManageRolesTest extends TestCase
     public function the_description_must_be_a_string()
     {
         $role = make(Role::class, [
-            'description' => 1234
+            'description' => 1234,
         ]);
 
         $this->postJson(route('rakshak.roles.store'), $role->toArray())
@@ -248,7 +248,7 @@ class ManageRolesTest extends TestCase
     public function it_must_have_a_valid_description()
     {
         $role = make(Role::class, [
-            'description' => 'A Valid description'
+            'description' => 'A Valid description',
         ]);
 
         $this->postJson(route('rakshak.roles.store'), $role->toArray())

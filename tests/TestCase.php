@@ -15,7 +15,7 @@ class TestCase extends OrchestraTestCase
         parent::setUp();
 
         $this->loadMigrations();
-        $this->withFactories(__DIR__ . '/../database/factories');
+        $this->withFactories(__DIR__.'/../database/factories');
         $this->loadCache();
         file_put_contents(app_path('User.php'), file_get_contents(rakshak_test_path('stubs/User.stub')));
     }
@@ -41,7 +41,7 @@ class TestCase extends OrchestraTestCase
     protected function loadMigrations()
     {
         $this->loadLaravelMigrations();
-        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
     }
 
     /**
@@ -55,7 +55,7 @@ class TestCase extends OrchestraTestCase
     }
 
     /**
-     * Register the service providers for the tests
+     * Register the service providers for the tests.
      *
      * @param [type] $app
      * @return void
@@ -65,7 +65,7 @@ class TestCase extends OrchestraTestCase
         return [
             \Orchestra\Database\ConsoleServiceProvider::class,
             \Thinkstudeo\Rakshak\RakshakServiceProvider::class,
-            \Thinkstudeo\Rakshak\Tests\TestsServiceProvider::class
+            \Thinkstudeo\Rakshak\Tests\TestsServiceProvider::class,
         ];
     }
 

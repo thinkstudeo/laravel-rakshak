@@ -8,7 +8,7 @@ $factory->define(\Thinkstudeo\Rakshak\Role::class, function (Faker $faker) {
         'name'        => $faker->name,
         'label'       => ucfirst($faker->word),
         'description' => $faker->sentence,
-        'active'      => true
+        'active'      => true,
     ];
 });
 

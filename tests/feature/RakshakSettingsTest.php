@@ -2,20 +2,15 @@
 
 namespace Thinkstudeo\Rakshak\Tests\Feature;
 
-
-use Thinkstudeo\Rakshak\Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Thinkstudeo\Rakshak\RakshakSetting;
-use Illuminate\Support\Facades\Cache;
 use Thinkstudeo\Rakshak\Rakshak;
+use Illuminate\Support\Facades\Cache;
+use Thinkstudeo\Rakshak\RakshakSetting;
+use Thinkstudeo\Rakshak\Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class RakshakSettingsTest extends TestCase
 {
     use RefreshDatabase;
-
 
     protected function setUp(): void
     {

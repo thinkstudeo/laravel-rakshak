@@ -2,13 +2,12 @@
 
 namespace Thinkstudeo\Rakshak\Http\Controllers;
 
-use Thinkstudeo\Rakshak\RakshakSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Thinkstudeo\Rakshak\RakshakSetting;
 
 class RakshakSettingsController extends Controller
 {
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -37,7 +36,7 @@ class RakshakSettingsController extends Controller
         $validated = $request->validate([
             'enable_2fa' => ['required', 'boolean'],
             'channel_2fa' => ['required', 'in:email,sms'],
-            'control_level_2fa' => ['required', 'in:admin,user']
+            'control_level_2fa' => ['required', 'in:admin,user'],
         ]);
 
         $setting = tap($setting)->update($validated);
@@ -49,8 +48,8 @@ class RakshakSettingsController extends Controller
 
         return redirect()
             ->back()
-            ->with("status", "success")
-            ->with("message", "Rakshak settings updated successfully.");
+            ->with('status', 'success')
+            ->with('message', 'Rakshak settings updated successfully.');
     }
 
     /**

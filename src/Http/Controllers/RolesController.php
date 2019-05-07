@@ -9,7 +9,7 @@ use Thinkstudeo\Rakshak\Ability;
 class RolesController extends Controller
 {
     /**
-     * Validation rules 
+     * Validation rules.
      *
      * @param \Illuminate\Http\Request $request
      * @return mixed
@@ -17,7 +17,7 @@ class RolesController extends Controller
     protected function rules($role)
     {
         return [
-            'name'        => ['required', 'unique:roles,name,' . $role->id ?: null, 'string', 'min:3', 'max:255'],
+            'name'        => ['required', 'unique:roles,name,'.$role->id ?: null, 'string', 'min:3', 'max:255'],
             'label'       => ['required', 'string'],
             'description' => ['required', 'string', 'max:255'],
             'active'      => ['nullable', 'boolean'],
@@ -33,9 +33,9 @@ class RolesController extends Controller
     public function index()
     {
         $roles = Role::all();
+
         return view('rakshak::roles.index', compact('roles'));
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -121,8 +121,8 @@ class RolesController extends Controller
 
         return redirect()
             ->back()
-            ->with("status", "success")
-            ->with("message", "Role {$role->name} updated successfully.");
+            ->with('status', 'success')
+            ->with('message', "Role {$role->name} updated successfully.");
     }
 
     /**

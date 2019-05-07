@@ -23,7 +23,7 @@ class Role extends Model
      *
      * @var array
      */
-    protected $guarded    = ['id'];
+    protected $guarded = ['id'];
 
     /**
      * Set the slug attribute from the name attribute value.
@@ -45,7 +45,7 @@ class Role extends Model
      */
     public function path()
     {
-        return "/" . config('rakshak.route_prefix') . "/roles/{$this->{$this->getRouteKeyName()}}";
+        return '/'.config('rakshak.route_prefix')."/roles/{$this->{$this->getRouteKeyName()}}";
     }
 
     /**
@@ -102,12 +102,12 @@ class Role extends Model
      * Determine whether the Ability is associated with the given Role.
      *
      * @param \Thinkstudeo\Rakshak\Ability|string $ability
-     * @return boolean
+     * @return bool
      */
     public function hasAbility($ability)
     {
         $model = $ability instanceof Ability ? $ability : Ability::whereName($ability)->firstOrFail();
 
-        return !!$this->abilities()->whereName($model->name)->count();
+        return (bool) $this->abilities()->whereName($model->name)->count();
     }
 }

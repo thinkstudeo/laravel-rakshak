@@ -8,7 +8,7 @@ use Thinkstudeo\Rakshak\Ability;
 class AbilitiesController extends Controller
 {
     /**
-     * Validation rules 
+     * Validation rules.
      *
      * @param Ability $ability
      * @return mixed
@@ -16,10 +16,10 @@ class AbilitiesController extends Controller
     protected function rules($ability)
     {
         return [
-            'name'        => ['required', 'string', 'unique:abilities,name,' . $ability->id ?: null, 'min:3', 'max:255'],
+            'name'        => ['required', 'string', 'unique:abilities,name,'.$ability->id ?: null, 'min:3', 'max:255'],
             'label'       => ['required', 'string'],
             'description' => ['required', 'string', 'max:255'],
-            'active'      => ['nullable', 'boolean']
+            'active'      => ['nullable', 'boolean'],
         ];
     }
 
@@ -106,8 +106,8 @@ class AbilitiesController extends Controller
 
         return redirect()
             ->back()
-            ->with("status", "success")
-            ->with("message", "Ability {$ability->name} updated successfully.");
+            ->with('status', 'success')
+            ->with('message', "Ability {$ability->name} updated successfully.");
     }
 
     /**

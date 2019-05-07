@@ -16,13 +16,13 @@ class CheckRole
      */
     public function handle($request, \Closure $next, $role)
     {
-        if (!$request->user()) {
+        if (! $request->user()) {
             return redirect(route('login'));
         }
 
         $roles = is_string($role) ? explode('|', $role) : $role;
 
-        if (!$request->user()->hasAnyRole($roles)) {
+        if (! $request->user()->hasAnyRole($roles)) {
             abort(Response::HTTP_FORBIDDEN, 'You do not have the permission.');
         }
 

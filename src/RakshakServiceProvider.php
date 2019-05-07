@@ -4,13 +4,12 @@ namespace Thinkstudeo\Rakshak;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\AliasLoader;
+use Thinkstudeo\Rakshak\Middleware\CheckRole;
 use Thinkstudeo\Rakshak\Console\InstallCommand;
 use Thinkstudeo\Rakshak\Console\PublishCommand;
+use Thinkstudeo\Rakshak\Support\BladeDirectives;
 use Thinkstudeo\Rakshak\Middleware\VerifyTwoFactorOtp;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Thinkstudeo\Rakshak\Middleware\CheckRole;
-use Illuminate\Support\Facades\Blade;
-use Thinkstudeo\Rakshak\Support\BladeDirectives;
 
 class RakshakServiceProvider extends ServiceProvider
 {
@@ -22,7 +21,7 @@ class RakshakServiceProvider extends ServiceProvider
     protected $policies = [
         \Thinkstudeo\Rakshak\Role::class         => \Thinkstudeo\Rakshak\Policies\RolePolicy::class,
         \Thinkstudeo\Rakshak\Ability::class      => \Thinkstudeo\Rakshak\Policies\AbilityPolicy::class,
-        \Thinkstudeo\Rakshak\RakshakSetting::class => \Thinkstudeo\Rakshak\Policies\RakshakSettingPolicy::class
+        \Thinkstudeo\Rakshak\RakshakSetting::class => \Thinkstudeo\Rakshak\Policies\RakshakSettingPolicy::class,
     ];
 
     /**
@@ -32,7 +31,6 @@ class RakshakServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-
         if ($this->app->runningInConsole()) {
             $this->registerPublishes();
         }
@@ -54,11 +52,11 @@ class RakshakServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/rakshak.php', 'rakshak');
+        $this->mergeConfigFrom(__DIR__.'/../config/rakshak.php', 'rakshak');
 
         $this->commands([
             InstallCommand::class,
-            PublishCommand::class
+            PublishCommand::class,
         ]);
 
         $this->registerMiddleware();
@@ -71,13 +69,13 @@ class RakshakServiceProvider extends ServiceProvider
      */
     protected function mergeConfig(): void
     {
-        if (!$this->app->configurationIsCached()) {
-            $this->mergeConfigFrom(__DIR__ . '/../config/rakshak.php', 'rakshak');
+        if (! $this->app->configurationIsCached()) {
+            $this->mergeConfigFrom(__DIR__.'/../config/rakshak.php', 'rakshak');
         }
     }
 
     /**
-     * Register the aliases for the package
+     * Register the aliases for the package.
      *
      * @return void
      */
@@ -114,7 +112,7 @@ class RakshakServiceProvider extends ServiceProvider
      */
     public function loadViews()
     {
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'rakshak');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'rakshak');
     }
 
     /**
@@ -125,7 +123,7 @@ class RakshakServiceProvider extends ServiceProvider
     protected function loadMigrations()
     {
         if (env('APP_ENV') !== 'testing') {
-            $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+            $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         }
     }
 
@@ -141,7 +139,6 @@ class RakshakServiceProvider extends ServiceProvider
         }
     }
 
-
     /**
      * Register the publishable config and views for the package.
      *
@@ -150,11 +147,11 @@ class RakshakServiceProvider extends ServiceProvider
     protected function registerPublishes()
     {
         $this->publishes([
-            __DIR__ . '/../resources/views' => resource_path('views/vendor/rakshak'),
+            __DIR__.'/../resources/views' => resource_path('views/vendor/rakshak'),
         ], 'views');
 
         $this->publishes([
-            __DIR__ . '/../config/rakshak.php' => config_path('rakshak.php'),
+            __DIR__.'/../config/rakshak.php' => config_path('rakshak.php'),
         ], 'config');
     }
 }

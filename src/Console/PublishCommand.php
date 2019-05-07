@@ -6,7 +6,6 @@ use Illuminate\Console\Command;
 
 class PublishCommand extends Command
 {
-
     /**
      * Signature to be used for calling the command from the cli, along with arguments and options.
      *

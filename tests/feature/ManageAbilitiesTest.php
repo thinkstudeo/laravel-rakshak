@@ -68,7 +68,7 @@ class ManageAbilitiesTest extends TestCase
     public function authorized_users_can_view_edit_ability_form()
     {
         $ability = create(Ability::class, ['name' => 'Ability 1', 'description' => 'Description for Ability 1']);
-        $this->get($ability->path() . "/edit")
+        $this->get($ability->path().'/edit')
             ->assertStatus(200)
             ->assertViewIs('rakshak::abilities.edit')
             ->assertSee($ability->name)
@@ -82,7 +82,7 @@ class ManageAbilitiesTest extends TestCase
         $ability = create(Ability::class, ['name' => 'Ability 1', 'description' => 'Description for Ability 1']);
         $this->assertDatabaseHas('abilities', ['name' => 'Ability 1', 'description' => 'Description for Ability 1']);
 
-        $ability->name        = 'Changed Name';
+        $ability->name = 'Changed Name';
         $ability->description = 'Updated description';
         $this->patchJson(route('rakshak.abilities.update', $ability->id), $ability->toArray())
             ->assertStatus(200);

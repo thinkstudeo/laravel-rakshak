@@ -3,13 +3,12 @@
 namespace Thinkstudeo\Rakshak\Tests\Feature;
 
 use Illuminate\Support\Facades\Cache;
-use Thinkstudeo\Rakshak\Tests\TestCase;
-use Illuminate\Support\Facades\Notification;
-use Thinkstudeo\Rakshak\Tests\Fixtures\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Artisan;
-use App\Notifications\Rakshak\LoginOtpMail;
+use Thinkstudeo\Rakshak\Tests\TestCase;
 use App\Notifications\Rakshak\LoginOtpSms;
+use App\Notifications\Rakshak\LoginOtpMail;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class TwoFactorTest extends TestCase
 {
@@ -26,17 +25,17 @@ class TwoFactorTest extends TestCase
 
     private function createDirectories()
     {
-        if (!is_dir($directory = base_path('routes'))) {
+        if (! is_dir($directory = base_path('routes'))) {
             mkdir($directory, 0755, true);
         }
-        if (!is_dir($directory = app_path('Http/Controllers/Auth'))) {
+        if (! is_dir($directory = app_path('Http/Controllers/Auth'))) {
             mkdir($directory, 0755, true);
         }
     }
 
     private function makeRouteFile()
     {
-        $stub = __DIR__ . '/../stubs/web.stub';
+        $stub = __DIR__.'/../stubs/web.stub';
 
         file_put_contents(
             base_path('routes/web.php'),

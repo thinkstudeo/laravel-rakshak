@@ -40,7 +40,7 @@ class VerifyTwoFactorOtp
     /**
      * Determine whether the 2fa is enabled for the current user.
      *
-     * @return boolean
+     * @return bool
      */
     private function is2faEnabled()
     {

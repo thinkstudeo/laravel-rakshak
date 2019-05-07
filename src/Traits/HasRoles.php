@@ -19,7 +19,7 @@ trait HasRoles
 
     /**
      * Assign a Role to the current User.
-     * 
+     *
      * @param $role
      * @return $this
      */
@@ -34,7 +34,7 @@ trait HasRoles
 
     /**
      * Retract a Role to the current User.
-     * 
+     *
      * @param $role
      * @return $this
      */
@@ -49,33 +49,33 @@ trait HasRoles
 
     /**
      * Determine if the user has the given role.
-     * 
+     *
      * @param $role
      * @return bool
      */
     public function hasRole($role)
     {
         return is_string($role)
-            ? !!$this->roles->contains('name', $role)
-            : !!$this->roles->intersect([$role])->count();
+            ? (bool) $this->roles->contains('name', $role)
+            : (bool) $this->roles->intersect([$role])->count();
     }
 
     /**
      * Determine if the user has any of the given roles.
      *
      * @param array $roles
-     * @return boolean
+     * @return bool
      */
     public function hasAnyRole(array $roles)
     {
         return is_string($roles[0])
-            ? !!$this->roles->intersect(Role::whereIn('name', $roles)->get())->count()
-            : !!$this->roles->intersect($roles)->count();
+            ? (bool) $this->roles->intersect(Role::whereIn('name', $roles)->get())->count()
+            : (bool) $this->roles->intersect($roles)->count();
     }
 
     /**
      * Determine if the user has any of the given abilities.
-     * 
+     *
      * @param $task
      * @return bool
      */
@@ -83,14 +83,14 @@ trait HasRoles
     {
         $ability = is_string($task) ? Ability::whereName($task)->first() : $task;
 
-        return $ability ? !!$ability->roles->intersect($this->roles)->count() : false;
+        return $ability ? (bool) $ability->roles->intersect($this->roles)->count() : false;
     }
 
     /**
      * Determine if the user has any of the given abilities.
      *
      * @param array $abilities
-     * @return boolean
+     * @return bool
      */
     public function hasAnyAbility(array $tasks)
     {
@@ -100,16 +100,17 @@ trait HasRoles
 
             $count += $ability ? $ability->roles->intersect($this->roles)->count() : 0;
         }
-        return !!$count;
+
+        return (bool) $count;
     }
 
     /**
      * Determine if the user is the super user.
-     * 
+     *
      * @return bool
      */
     public function isSuperUser()
     {
-        return !!$this->hasRole('super');
+        return (bool) $this->hasRole('super');
     }
 }

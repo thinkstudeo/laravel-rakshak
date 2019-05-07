@@ -12,7 +12,7 @@ $factory->define(config('auth.providers.users.model'), function (Faker $faker) {
         'mobile'         => $faker->e164PhoneNumber,
         'password'       => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
         'remember_token' => str_random(10),
-        'status' => 'active'
+        'status' => 'active',
     ];
 });
 
@@ -24,7 +24,6 @@ $factory->state(config('auth.providers.users.model'), 'HrManager', ['name' => 'H
         // dd($manageUsers->roles);
         $user->assignRole($hrManager);
     });
-
 
 $factory->state(config('auth.providers.users.model'), 'ContentManager', ['name' => 'Content Manager'])
     ->afterCreatingState(config('auth.providers.users.model'), 'ContentManager', function ($user, $faker) {

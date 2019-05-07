@@ -299,6 +299,9 @@ A route middleware `role` is registered by the package.
 ```php
 //Protect the route and make it accessible only to users having hr_manager role.
 Route::get('/some-route', 'SomeController@action')->middleware('role:hr_manager');
+
+//Protect the route and make it accessible only to users having either of hr_manager, content_manager or super role.
+Route::get('/some-route', 'SomeController@action')->middleware('role:hr_manager|content_manager|super');
 ```
 
 To protect the routes with valid opt, use the `rakshak.2fa` middleware.

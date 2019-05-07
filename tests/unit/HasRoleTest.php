@@ -2,12 +2,12 @@
 
 namespace Thinkstudeo\Rakshak\Tests\Unit;
 
+use App\User;
 use Thinkstudeo\Rakshak\Role;
 use Thinkstudeo\Rakshak\Ability;
 use Thinkstudeo\Rakshak\Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\User;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class HasRoleTest extends TestCase
 {

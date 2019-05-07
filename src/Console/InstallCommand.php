@@ -2,10 +2,10 @@
 
 namespace Thinkstudeo\Rakshak\Console;
 
+use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Console\DetectsApplicationNamespace;
-use Illuminate\Support\Str;
 
 class InstallCommand extends Command
 {
@@ -59,12 +59,12 @@ class InstallCommand extends Command
     protected function exportRoutes()
     {
         if (
-            !Str::contains(file_get_contents(base_path('routes/web.php')), 'Auth::routes') ||
+            ! Str::contains(file_get_contents(base_path('routes/web.php')), 'Auth::routes') ||
             $this->option('force')
         ) {
             file_put_contents(
                 base_path('routes/web.php'),
-                file_get_contents(__DIR__ . '/stubs/routes.stub'),
+                file_get_contents(__DIR__.'/stubs/routes.stub'),
                 FILE_APPEND
             );
         }
@@ -78,7 +78,7 @@ class InstallCommand extends Command
     protected $controllers = [
         'RegisterController.stub' => 'Http/Controllers/Auth/RegisterController.php',
         'LoginController.stub'    => 'Http/Controllers/Auth/LoginController.php',
-        'HomeController.stub'     => 'Http/Controllers/HomeController.php'
+        'HomeController.stub'     => 'Http/Controllers/HomeController.php',
     ];
 
     /**
@@ -89,10 +89,10 @@ class InstallCommand extends Command
     protected function makeControllers()
     {
         foreach ($this->controllers as $key => $value) {
-            if (!file_exists(app_path($value)) || $this->option('force')) {
+            if (! file_exists(app_path($value)) || $this->option('force')) {
                 file_put_contents(
                     app_path($value),
-                    $this->compileStub(__DIR__ . "/stubs/controllers/{$key}")
+                    $this->compileStub(__DIR__."/stubs/controllers/{$key}")
                 );
             }
         }
@@ -119,15 +119,15 @@ class InstallCommand extends Command
      */
     protected function createDirectories()
     {
-        if (!is_dir($directory = resource_path('views/layouts'))) {
+        if (! is_dir($directory = resource_path('views/layouts'))) {
             mkdir($directory, 0755, true);
         }
 
-        if (!is_dir($directory = resource_path('views/auth/passwords'))) {
+        if (! is_dir($directory = resource_path('views/auth/passwords'))) {
             mkdir($directory, 0755, true);
         }
 
-        if (!is_dir($directory = app_path('Notifications/Rakshak'))) {
+        if (! is_dir($directory = app_path('Notifications/Rakshak'))) {
             mkdir($directory, 0755, true);
         }
     }
@@ -155,14 +155,14 @@ class InstallCommand extends Command
     protected function exportViews()
     {
         foreach ($this->views as $key => $value) {
-            if (file_exists($view = resource_path('views/' . $value)) && !$this->option('force')) {
-                if (!$this->confirm("The [{$value}] view already exists. Do you want to replace it?")) {
+            if (file_exists($view = resource_path('views/'.$value)) && ! $this->option('force')) {
+                if (! $this->confirm("The [{$value}] view already exists. Do you want to replace it?")) {
                     continue;
                 }
             }
 
             copy(
-                __DIR__ . '/stubs/views/' . $key,
+                __DIR__.'/stubs/views/'.$key,
                 $view
             );
         }
@@ -175,13 +175,13 @@ class InstallCommand extends Command
      */
     public function exportNotifications()
     {
-        $stubs = (new Filesystem)->files(__DIR__ . '/stubs/notifications/');
+        $stubs = (new Filesystem)->files(__DIR__.'/stubs/notifications/');
 
         foreach ($stubs as $stub) {
             $filename = str_replace('stub', 'php', basename($stub));
             $path = app_path("Notifications/Rakshak/{$filename}");
 
-            if (!file_exists($path) || $this->option('force')) {
+            if (! file_exists($path) || $this->option('force')) {
                 file_put_contents(
                     $path,
                     $this->compileStub($stub->getPathname())
@@ -197,14 +197,14 @@ class InstallCommand extends Command
      */
     public function updateUserModel()
     {
-        $stubPath = __DIR__ . '/stubs/User.stub';
+        $stubPath = __DIR__.'/stubs/User.stub';
         $namespace = trim(str_replace(
             class_basename(config('auth.providers.users.model')),
             '',
             config('auth.providers.users.model')
         ), '\\');
         if (
-            !str_contains(file_get_contents(app_path('User.php')), 'HasRakshak') ||
+            ! str_contains(file_get_contents(app_path('User.php')), 'HasRakshak') ||
             $this->option('force')
         ) {
             file_put_contents(

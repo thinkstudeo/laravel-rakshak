@@ -2,13 +2,9 @@
 
 namespace Thinkstudeo\Rakshak\Tests\Feature;
 
-
-use Thinkstudeo\Rakshak\Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Route;
+use Thinkstudeo\Rakshak\Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class BladeDirectiveTest extends TestCase
 {

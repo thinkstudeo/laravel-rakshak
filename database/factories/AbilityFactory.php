@@ -7,6 +7,6 @@ $factory->define(Thinkstudeo\Rakshak\Ability::class, function (Faker $faker) {
         'name'        => $faker->word(),
         'label'       => ucfirst($faker->word()),
         'description' => $faker->sentence(),
-        'active'      => true
+        'active'      => true,
     ];
 });

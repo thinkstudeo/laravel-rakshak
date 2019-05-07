@@ -2,14 +2,12 @@
 
 namespace Thinkstudeo\Rakshak\Tests\Feature;
 
-use Thinkstudeo\Rakshak\Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-// use Thinkstudeo\Rakshak\Tests\Fixtures\User;
 use App\User;
+use Thinkstudeo\Rakshak\Tests\TestCase;
+// use Thinkstudeo\Rakshak\Tests\Fixtures\User;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Auth\Notifications\VerifyEmail;
-use Illuminate\Support\Facades\Event;
-use Illuminate\Auth\Events\Registered;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class RegistrationTest extends TestCase
 {
@@ -40,7 +38,7 @@ class RegistrationTest extends TestCase
             'username' => 'johndoe',
             'mobile' => '+919898989898',
             'password' => 'password',
-            'password_confirmation' => 'password'
+            'password_confirmation' => 'password',
         ]);
 
         $this->assertCount(1, User::all());

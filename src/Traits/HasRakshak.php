@@ -46,6 +46,6 @@ trait HasRakshak
      */
     public function path()
     {
-        return "/" . config('rakshak.route_prefix') . "/users/{$this->{$this->getRouteKeyName()}}";
+        return '/'.config('rakshak.route_prefix')."/users/{$this->{$this->getRouteKeyName()}}";
     }
 }

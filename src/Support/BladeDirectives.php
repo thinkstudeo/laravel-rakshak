@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Blade;
 
 class BladeDirectives
 {
-
     /**
      * Register the blade directives.
      *

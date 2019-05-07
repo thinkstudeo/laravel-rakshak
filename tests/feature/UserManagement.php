@@ -2,25 +2,19 @@
 
 namespace Thinkstudeo\Rakshak\Tests\Feature;
 
-
-use Thinkstudeo\Rakshak\Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Thinkstudeo\Rakshak\Tests\Fixtures\User;
 use Thinkstudeo\Rakshak\Role;
-use Thinkstudeo\Rakshak\Tests\Fixtures\Notifications\TemporaryPasswordMail;
-use Illuminate\Support\Facades\Notification;
-use Thinkstudeo\Rakshak\Tests\Fixtures\Notifications\SendLoginOtpMail;
 use Illuminate\Support\Carbon;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Artisan;
+use Thinkstudeo\Rakshak\Tests\TestCase;
+use Illuminate\Support\Facades\Notification;
+use Thinkstudeo\Rakshak\Tests\Fixtures\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Thinkstudeo\Rakshak\Tests\Fixtures\Notifications\TemporaryPasswordMail;
 
-class UserManagementTest extends TestCase
+class UserManagement extends TestCase
 {
     use RefreshDatabase;
-
 
     protected function setUp(): void
     {
@@ -99,7 +93,7 @@ class UserManagementTest extends TestCase
     /** @test */
     public function authorized_users_may_create_a_new_user()
     {
-        $userData = (array)raw($this->userModel);
+        $userData = (array) raw($this->userModel);
 
         $this->postJson(route('guardian.users.store'), $userData)
             ->assertStatus(201);
@@ -110,11 +104,11 @@ class UserManagementTest extends TestCase
     /** @test */
     public function authorized_users_can_create_a_new_user_with_roles()
     {
-        $userData = (array)raw($this->userModel);
+        $userData = (array) raw($this->userModel);
         $role1 = create(Role::class, ['name' => 'Role 1']);
         $role2 = create(Role::class, ['name' => 'Role 2']);
         $data = array_merge($userData, [
-            'roles' => [$role1->toArray(), $role2->toArray()]
+            'roles' => [$role1->toArray(), $role2->toArray()],
         ]);
 
         $this->postJson(route('guardian.users.store'), $data)
@@ -165,7 +159,7 @@ class UserManagementTest extends TestCase
     public function a_temporary_password_is_automatically_assigned_when_a_user_is_created()
     {
         $userData = make($this->userModel, [
-            'password' => null
+            'password' => null,
         ]);
         $this->postJson(route('guardian.users.store'), $userData->toArray())
             ->assertStatus(201);
@@ -181,7 +175,7 @@ class UserManagementTest extends TestCase
         Notification::fake();
         Notification::assertNothingSent();
         $userData = make($this->userModel, [
-            'password' => null
+            'password' => null,
         ]);
         $this->postJson(route('guardian.users.store'), $userData->toArray())
             ->assertStatus(201);
@@ -201,7 +195,7 @@ class UserManagementTest extends TestCase
     public function a_user_cannot_be_created_without_name()
     {
         $user = make($this->userModel, [
-            'name' => null
+            'name' => null,
         ]);
         $this->postJson(route('guardian.users.store'), $user->toArray())
             ->assertStatus(422)
@@ -214,7 +208,7 @@ class UserManagementTest extends TestCase
     {
         $john = create($this->userModel, ['username' => 'johndoe']);
         $user = make($this->userModel, [
-            'username' => null
+            'username' => null,
         ]);
         $this->postJson(route('guardian.users.store'), $user->toArray())
             ->assertStatus(422)
@@ -222,7 +216,7 @@ class UserManagementTest extends TestCase
             ->assertJsonFragment(['username' => ['The username field is required.']]);
 
         $user = make($this->userModel, [
-            'username' => 'johndoe'
+            'username' => 'johndoe',
         ]);
         $this->postJson(route('guardian.users.store'), $user->toArray())
             ->assertStatus(422)
@@ -235,7 +229,7 @@ class UserManagementTest extends TestCase
     {
         $john = create($this->userModel, ['email' => 'john@example.com']);
         $user = make($this->userModel, [
-            'email' => null
+            'email' => null,
         ]);
         $this->postJson(route('guardian.users.store'), $user->toArray())
             ->assertStatus(422)
@@ -243,7 +237,7 @@ class UserManagementTest extends TestCase
             ->assertJsonFragment(['email' => ['The email field is required.']]);
 
         $user = make($this->userModel, [
-            'email' => 'john@example.com'
+            'email' => 'john@example.com',
         ]);
         $this->postJson(route('guardian.users.store'), $user->toArray())
             ->assertStatus(422)
@@ -255,7 +249,7 @@ class UserManagementTest extends TestCase
     public function a_user_cannot_be_created_without_a_mobile()
     {
         $user = make($this->userModel, [
-            'mobile' => null
+            'mobile' => null,
         ]);
         $this->postJson(route('guardian.users.store'), $user->toArray())
             ->assertStatus(422)

@@ -10,9 +10,9 @@ class RakshakSetting extends Model
     use UuidAsPrimaryKey;
 
     /**
-     * Set the incrementing property to false
+     * Set the incrementing property to false.
      *
-     * @var boolean
+     * @var bool
      */
     public $incrementing = false;
 
@@ -42,6 +42,6 @@ class RakshakSetting extends Model
      * @var array
      */
     protected $casts = [
-        'enable_2fa' => 'boolean'
+        'enable_2fa' => 'boolean',
     ];
 }

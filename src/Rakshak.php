@@ -10,7 +10,7 @@ use Thinkstudeo\Rakshak\Tests\Fixtures\Notifications\TemporaryPasswordMail;
 class Rakshak
 {
     /**
-     * Register all routes for the package
+     * Register all routes for the package.
      *
      * @return void
      */
@@ -28,10 +28,10 @@ class Rakshak
      */
     public static function loadCache()
     {
-        $settings = Schema::hasTable('rakshak_settings') ? RakshakSetting::first() : (object)[
+        $settings = Schema::hasTable('rakshak_settings') ? RakshakSetting::first() : (object) [
             'enable_2fa'        => config('rakshak.enable_2fa'),
             'channel_2fa'       => 'email',
-            'control_level_2fa' => 'admin'
+            'control_level_2fa' => 'admin',
         ];
 
         Cache::forever('rakshak.enable_2fa', $settings->enable_2fa);
@@ -80,9 +80,9 @@ class Rakshak
      */
     public static function sendOtp($user)
     {
-        $channel      = Cache::get('rakshak.channel_2fa');
+        $channel = Cache::get('rakshak.channel_2fa');
 
-        $notifications = config('rakshak.login.' . $channel);
+        $notifications = config('rakshak.login.'.$channel);
 
         foreach ($notifications as $notification) {
             return $user->notify(new $notification);
@@ -102,7 +102,7 @@ class Rakshak
     }
 
     /**
-     * Get the path to the showVerifyOtpForm
+     * Get the path to the showVerifyOtpForm.
      *
      * @return string
      */

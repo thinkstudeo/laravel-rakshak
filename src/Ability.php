@@ -11,9 +11,9 @@ class Ability extends Model
     use UuidAsPrimaryKey;
 
     /**
-     * Set the incrementing property to false
+     * Set the incrementing property to false.
      *
-     * @var boolean
+     * @var bool
      */
     public $incrementing = false;
 
@@ -29,10 +29,10 @@ class Ability extends Model
      *
      * @var array
      */
-    protected $guarded   = ['id'];
+    protected $guarded = ['id'];
 
     /**
-     * Set the slug value from the name attribute
+     * Set the slug value from the name attribute.
      *
      * @param string $value
      * @return void
@@ -50,7 +50,7 @@ class Ability extends Model
      */
     public function path()
     {
-        return "/" . config('rakshak.route_prefix') . "/abilities/{$this->{$this->getRouteKeyName()}}";
+        return '/'.config('rakshak.route_prefix')."/abilities/{$this->{$this->getRouteKeyName()}}";
     }
 
     /**

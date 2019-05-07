@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Schema;
+use Thinkstudeo\Rakshak\RakshakSetting;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use Thinkstudeo\Rakshak\RakshakSetting;
 
 class CreateRakshakSettingsTable extends Migration
 {

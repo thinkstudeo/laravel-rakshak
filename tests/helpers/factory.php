@@ -1,7 +1,6 @@
 <?php
 
-if (!function_exists('create'))
-{
+if (! function_exists('create')) {
     /**
      * Use Model Factory to create the Model instance with fake data.
      * The created instance will be persisted to database.
@@ -16,8 +15,7 @@ if (!function_exists('create'))
     }
 }
 
-if (!function_exists('make'))
-{
+if (! function_exists('make')) {
     /**
      * Use Model Factory to create the Model instance with fake data.
      * The created instance will not be persisted to database.
@@ -32,8 +30,7 @@ if (!function_exists('make'))
     }
 }
 
-if (!function_exists('raw'))
-{
+if (! function_exists('raw')) {
     /**
      * Use Model Factory to create array of the Model attributes with fake data.
      *
@@ -47,14 +44,13 @@ if (!function_exists('raw'))
     }
 }
 
-if (!function_exists('createMany'))
-{
+if (! function_exists('createMany')) {
     /**
      * Use Model Factory to create multiple the Model instances with fake data.
      * The created instances will be persisted to database.
      *
      * @param string $class
-     * @param integer $number
+     * @param int $number
      * @param array $attributes
      * @return \Illuminate\Database\Eloquent\Factory
      */
@@ -64,14 +60,13 @@ if (!function_exists('createMany'))
     }
 }
 
-if (!function_exists('makeMany'))
-{
+if (! function_exists('makeMany')) {
     /**
      * Use Model Factory to make multiple the Model instances with fake data.
      * The created instances will not be persisted to database.
      *
      * @param string $class
-     * @param integer $number
+     * @param int $number
      * @param array $attributes
      * @return \Illuminate\Database\Eloquent\Factory
      */
@@ -81,10 +76,9 @@ if (!function_exists('makeMany'))
     }
 }
 
-if (!function_exists('createBin'))
-{
+if (! function_exists('createBin')) {
     /**
-     * Create a new Postbin
+     * Create a new Postbin.
      *
      * @return string postbin id
      */
@@ -96,8 +90,7 @@ if (!function_exists('createBin'))
     }
 }
 
-if (!function_exists('readBin'))
-{
+if (! function_exists('readBin')) {
     /**
      * Fetch the contents of the postbin identified by the id.
      *

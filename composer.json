@@ -1,5 +1,5 @@
 {
-  "name": "thinkstudeo/guardian",
+  "name": "thinkstudeo/laravel-guardian",
   "description": "An authentication library for Laravel.",
   "keywords": [
     "laravel",
@@ -52,6 +52,9 @@
         "Guardian": "Thinkstudeo\\Guardian\\Guardian"
       }
     }
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit"
   },
   "config": {
     "sort-packages": true

@@ -1,4 +1,4 @@
-# Guardian - Authentication & Authorization for Laravel 5.7+
+# Guardian - Two Factor Authentication & Authorization for Laravel 5.7+
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/thinkstudeo/guardian.svg?style=flat-square)](https://packagist.org/packages/thinkstudeo/guardian)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
@@ -14,7 +14,7 @@ This package extends the authentication and authorization in a Lavarel applicati
 
 ## Contents
 
-- [Guardian - Authentication & Authorization for Laravel 5.7+](#guardian---authentication--authorization-for-laravel-57)
+- [Guardian - Two Factor Authentication & Authorization for Laravel 5.7+](#guardian---two-factor-authentication--authorization-for-laravel-57)
   - [Contents](#contents)
   - [Installation](#installation)
   - [Config](#config)

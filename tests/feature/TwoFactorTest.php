@@ -1,15 +1,15 @@
 <?php
 
-namespace Thinkstudeo\Guardian\Tests\Feature;
+namespace Thinkstudeo\Rakshak\Tests\Feature;
 
 use Illuminate\Support\Facades\Cache;
-use Thinkstudeo\Guardian\Tests\TestCase;
+use Thinkstudeo\Rakshak\Tests\TestCase;
 use Illuminate\Support\Facades\Notification;
-use Thinkstudeo\Guardian\Tests\Fixtures\User;
+use Thinkstudeo\Rakshak\Tests\Fixtures\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Artisan;
-use App\Notifications\Guardian\LoginOtpMail;
-use App\Notifications\Guardian\LoginOtpSms;
+use App\Notifications\Rakshak\LoginOtpMail;
+use App\Notifications\Rakshak\LoginOtpSms;
 
 class TwoFactorTest extends TestCase
 {
@@ -21,7 +21,7 @@ class TwoFactorTest extends TestCase
         $this->createDirectories();
         $this->makeRouteFile();
         Artisan::call('config:clear');
-        Artisan::call('guardian:install', ['--force' => true]);
+        Artisan::call('rakshak:install', ['--force' => true]);
     }
 
     private function createDirectories()
@@ -46,17 +46,17 @@ class TwoFactorTest extends TestCase
 
     private function enable2fa()
     {
-        config(['guardian.enable_2fa' => true]);
+        config(['rakshak.enable_2fa' => true]);
         $this->userModel = config('auth.providers.users.model');
     }
 
     /** @test */
     public function two_factor_authentication_can_be_enabled()
     {
-        $this->assertFalse(config('guardian.enable_2fa'));
+        $this->assertFalse(config('rakshak.enable_2fa'));
 
-        config(['guardian.enable_2fa' => true]);
-        $this->assertTrue(config('guardian.enable_2fa'));
+        config(['rakshak.enable_2fa' => true]);
+        $this->assertTrue(config('rakshak.enable_2fa'));
     }
 
     /** @test */
@@ -65,7 +65,7 @@ class TwoFactorTest extends TestCase
         $this->withoutExceptionHandling();
         //Arrange
         $this->enable2fa();
-        Cache::put('guardian.channel_2fa', 'email', 5);
+        Cache::put('rakshak.channel_2fa', 'email', 5);
         $user = create($this->userModel, ['email' => 'john@example.com', 'password' => bcrypt('secret')]);
 
         //Act
@@ -79,9 +79,10 @@ class TwoFactorTest extends TestCase
     /** @test */
     public function when_email_is_set_as_2fa_channel_an_email_with_otp_is_sent_to_the_user()
     {
+        $this->withoutExceptionHandling();
         //Arrange
         $this->enable2fa();
-        Cache::put('guardian.channel_2fa', 'email', 5);
+        Cache::put('rakshak.channel_2fa', 'email', 5);
         Notification::fake();
         Notification::assertNothingSent();
         $user = create($this->userModel, ['email' => 'john@example.com', 'password' => bcrypt('secret')]);
@@ -108,7 +109,7 @@ class TwoFactorTest extends TestCase
     {
         //Arrange
         $this->enable2fa();
-        Cache::put('guardian.channel_2fa', 'sms', 5);
+        Cache::put('rakshak.channel_2fa', 'sms', 5);
         Notification::fake();
         Notification::assertNothingSent();
         $user = create($this->userModel, ['email' => 'john@example.com', 'password' => bcrypt('secret'), 'mobile' => '+919033100026']);
@@ -135,9 +136,9 @@ class TwoFactorTest extends TestCase
         $this->withoutExceptionHandling();
         Notification::fake();
         //Arrange
-        // $this->artisan('guardian:install');
+        // $this->artisan('rakshak:install');
         $this->enable2fa();
-        Cache::put('guardian.channel_2fa', 'sms', 5);
+        Cache::put('rakshak.channel_2fa', 'sms', 5);
         $user = create($this->userModel, ['email' => 'john@example.com', 'password' => bcrypt('secret')]);
 
         //Act
@@ -146,7 +147,7 @@ class TwoFactorTest extends TestCase
         $this->get('/home')->assertRedirect('/login/2fa');
         // session(['intended' => '/home']);
         $this->assertTrue($user->fresh()->otp_expiry <= now());
-        $this->post(route('guardian.2fa.verify'), ['otp' => $user->fresh()->otp_token])->assertRedirect('/home');
+        $this->post(route('rakshak.2fa.verify'), ['otp' => $user->fresh()->otp_token])->assertRedirect('/home');
 
         //Assert
         $this->assertTrue(auth()->user()->name === $user->name);

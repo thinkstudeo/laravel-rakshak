@@ -1,10 +1,10 @@
 <?php
 
-namespace Thinkstudeo\Guardian;
+namespace Thinkstudeo\Rakshak;
 
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
-use Thinkstudeo\Guardian\Traits\UuidAsPrimaryKey;
+use Thinkstudeo\Rakshak\Traits\UuidAsPrimaryKey;
 
 class Role extends Model
 {
@@ -45,7 +45,7 @@ class Role extends Model
      */
     public function path()
     {
-        return "/" . config('guardian.route_prefix') . "/roles/{$this->{$this->getRouteKeyName()}}";
+        return "/" . config('rakshak.route_prefix') . "/roles/{$this->{$this->getRouteKeyName()}}";
     }
 
     /**
@@ -71,16 +71,14 @@ class Role extends Model
     /**
      * Add the Ability provided as parameter to the given Role.
      *
-     * @param \Thinkstudeo\Guardian\Ability|string $ability
-     * @return \Thinkstudeo\Guardian\Role
+     * @param \Thinkstudeo\Rakshak\Ability|string $ability
+     * @return \Thinkstudeo\Rakshak\Role
      */
     public function addAbility($ability)
     {
         $model = $ability instanceof Ability ? $ability : Ability::whereName($ability)->firstOrFail();
 
-        // $this->abilities()->attach($model->id);
         $this->abilities()->save($model);
-        // dd($this->abilities);
 
         return $this;
     }
@@ -88,8 +86,8 @@ class Role extends Model
     /**
      * Remove the Ability provided as parameter from the given Role.
      *
-     * @param string|\Thinkstudeo\Guardian\Ability $ability
-     * @return \Thinkstudeo\Guardian\Role
+     * @param string|\Thinkstudeo\Rakshak\Ability $ability
+     * @return \Thinkstudeo\Rakshak\Role
      */
     public function retractAbility($ability)
     {
@@ -103,7 +101,7 @@ class Role extends Model
     /**
      * Determine whether the Ability is associated with the given Role.
      *
-     * @param \Thinkstudeo\Guardian\Ability|string $ability
+     * @param \Thinkstudeo\Rakshak\Ability|string $ability
      * @return boolean
      */
     public function hasAbility($ability)

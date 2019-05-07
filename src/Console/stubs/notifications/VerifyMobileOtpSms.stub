@@ -1,6 +1,6 @@
 <?php
 
-namespace {{namespace}}Notifications\Guardian;
+namespace {{namespace}}Notifications\Rakshak;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
@@ -32,7 +32,7 @@ class VerifyMobileOtpSms extends Notification
     {
         return (new TextlocalMessage)
             ->transactional()
-            ->content(sprintf(config('guardian.textlocal.login.otp_template'), $notifiable->otp_token))
-            ->from(config('services.textlocal.transactional.from'));
+            ->content(sprintf(config('rakshak.login.otp_template'), $notifiable->otp_token))
+            ->from(config('rakshak.sender.sms.from'));
     }
 }

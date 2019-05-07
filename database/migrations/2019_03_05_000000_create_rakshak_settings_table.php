@@ -3,9 +3,9 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use Thinkstudeo\Guardian\GuardianSetting;
+use Thinkstudeo\Rakshak\RakshakSetting;
 
-class CreateGuardianSettingsTable extends Migration
+class CreateRakshakSettingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class CreateGuardianSettingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('guardian_settings', function (Blueprint $table) {
+        Schema::create('rakshak_settings', function (Blueprint $table) {
             $table->uuid('id');
             $table->boolean('enable_2fa')->default(false);
             $table->string('channel_2fa')->default('email');
@@ -24,7 +24,7 @@ class CreateGuardianSettingsTable extends Migration
             $table->primary('id');
         });
 
-        GuardianSetting::create();
+        RakshakSetting::create();
     }
 
     /**
@@ -34,6 +34,6 @@ class CreateGuardianSettingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('guardian_settings');
+        Schema::dropIfExists('rakshak_settings');
     }
 }

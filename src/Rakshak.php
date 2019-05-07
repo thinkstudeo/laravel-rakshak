@@ -1,13 +1,13 @@
 <?php
 
-namespace Thinkstudeo\Guardian;
+namespace Thinkstudeo\Rakshak;
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
-use Thinkstudeo\Guardian\Tests\Fixtures\Notifications\TemporaryPasswordMail;
+use Thinkstudeo\Rakshak\Tests\Fixtures\Notifications\TemporaryPasswordMail;
 
-class Guardian
+class Rakshak
 {
     /**
      * Register all routes for the package
@@ -22,21 +22,21 @@ class Guardian
     }
 
     /**
-     * Load the Guardian Settings values in Cache.
+     * Load the Rakshak Settings values in Cache.
      *
      * @return void
      */
     public static function loadCache()
     {
-        $settings = Schema::hasTable('guardian_settings') ? GuardianSetting::first() : (object)[
-            'enable_2fa'        => config('guardian.enable_2fa'),
+        $settings = Schema::hasTable('rakshak_settings') ? RakshakSetting::first() : (object)[
+            'enable_2fa'        => config('rakshak.enable_2fa'),
             'channel_2fa'       => 'email',
             'control_level_2fa' => 'admin'
         ];
 
-        Cache::forever('guardian.enable_2fa', $settings->enable_2fa);
-        Cache::forever('guardian.channel_2fa', $settings->channel_2fa);
-        Cache::forever('guardian.control_level_2fa', $settings->control_level_2fa);
+        Cache::forever('rakshak.enable_2fa', $settings->enable_2fa);
+        Cache::forever('rakshak.channel_2fa', $settings->channel_2fa);
+        Cache::forever('rakshak.control_level_2fa', $settings->control_level_2fa);
     }
 
     /**
@@ -46,19 +46,19 @@ class Guardian
      */
     public function apiRoutes()
     {
-        Route::namespace('\Thinkstudeo\Guardian\Http\Controllers')
+        Route::namespace('\Thinkstudeo\Rakshak\Http\Controllers')
             ->middleware(['web', 'auth'])
-            ->prefix(config('guardian.route_prefix'))
+            ->prefix(config('rakshak.route_prefix'))
             ->group(function () {
-                Route::get('login/2fa', 'TwoFactorController@showOtpForm')->name('guardian.2fa.show');
-                Route::post('/ogin/2fa/verify', 'TwoFactorController@verifyOtp')->name('guardian.2fa.verify');
+                Route::get('login/2fa', 'TwoFactorController@showOtpForm')->name('rakshak.2fa.show');
+                Route::post('login/2fa/verify', 'TwoFactorController@verifyOtp')->name('rakshak.2fa.verify');
 
-                Route::resource('roles', 'RolesController', ['as' => 'guardian']);
+                Route::resource('roles', 'RolesController', ['as' => 'rakshak']);
 
-                Route::resource('abilities', 'AbilitiesController', ['as' => 'guardian']);
+                Route::resource('abilities', 'AbilitiesController', ['as' => 'rakshak']);
 
-                Route::get('settings', 'GuardianSettingsController@edit')->name('guardian.settings.edit');
-                Route::put('settings', 'GuardianSettingsController@update')->name('guardian.settings.update');
+                Route::get('settings', 'RakshakSettingsController@edit')->name('rakshak.settings.edit');
+                Route::put('settings', 'RakshakSettingsController@update')->name('rakshak.settings.update');
             });
     }
 
@@ -80,9 +80,9 @@ class Guardian
      */
     public static function sendOtp($user)
     {
-        $channel      = Cache::get('guardian.channel_2fa');
+        $channel      = Cache::get('rakshak.channel_2fa');
 
-        $notifications = config('guardian.login.' . $channel);
+        $notifications = config('rakshak.login.' . $channel);
 
         foreach ($notifications as $notification) {
             return $user->notify(new $notification);

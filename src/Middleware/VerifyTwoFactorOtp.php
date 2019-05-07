@@ -1,12 +1,13 @@
 <?php
 
-namespace Thinkstudeo\Guardian\Middleware;
+namespace Thinkstudeo\Rakshak\Middleware;
 
 use Closure;
 use Illuminate\Support\Carbon;
-use Thinkstudeo\Guardian\Guardian;
-use Thinkstudeo\Guardian\Settings;
+use Thinkstudeo\Rakshak\Rakshak;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Thinkstudeo\Rakshak\RakshakSetting;
 
 class VerifyTwoFactorOtp
 {
@@ -19,20 +20,40 @@ class VerifyTwoFactorOtp
      */
     public function handle($request, Closure $next)
     {
-        if (config('guardian.enable_2fa')) {
+        if ($this->is2faEnabled()) {
             $user = Auth::user();
             if ($user->otp_expiry > Carbon::now()) {
                 return $next($request);
             }
 
-            $user->otp_token = Guardian::generateOtp();
+            $user->otp_token = Rakshak::generateOtp();
             $user->save();
 
-            Guardian::sendOtp($user);
+            Rakshak::sendOtp($user);
 
-            return redirect(Guardian::verifyOtpPath());
+            return redirect(Rakshak::verifyOtpPath());
         }
 
         return $next($request);
+    }
+
+    /**
+     * Determine whether the 2fa is enabled for the current user.
+     *
+     * @return boolean
+     */
+    private function is2faEnabled()
+    {
+        $enabled = config('rakshak.enable_2fa');
+        // $controlLevel = RakshakSetting::first()->control_level_2fa;
+        $controlLevel = Cache::get('rakshak.control_level_2fa');
+
+        if ($enabled && $controlLevel === 'admin') {
+            return true;
+        }
+
+        if ($enabled && $controlLevel === 'user') {
+            return Auth::user()->enable_2fa;
+        }
     }
 }

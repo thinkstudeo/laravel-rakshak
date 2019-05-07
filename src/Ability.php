@@ -1,10 +1,10 @@
 <?php
 
-namespace Thinkstudeo\Guardian;
+namespace Thinkstudeo\Rakshak;
 
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
-use Thinkstudeo\Guardian\Traits\UuidAsPrimaryKey;
+use Thinkstudeo\Rakshak\Traits\UuidAsPrimaryKey;
 
 class Ability extends Model
 {
@@ -50,7 +50,7 @@ class Ability extends Model
      */
     public function path()
     {
-        return "/" . config('guardian.route_prefix') . "/abilities/{$this->{$this->getRouteKeyName()}}";
+        return "/" . config('rakshak.route_prefix') . "/abilities/{$this->{$this->getRouteKeyName()}}";
     }
 
     /**

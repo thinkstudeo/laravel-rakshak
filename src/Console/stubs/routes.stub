@@ -1,5 +1,5 @@
 Auth::routes(['verify' => true]);
 
-Guardian::routes();
+Rakshak::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

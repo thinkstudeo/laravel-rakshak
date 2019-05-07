@@ -1,6 +1,6 @@
 <?php
 
-namespace Thinkstudeo\Guardian\Support;
+namespace Thinkstudeo\Rakshak\Support;
 
 use Illuminate\Support\Facades\Blade;
 

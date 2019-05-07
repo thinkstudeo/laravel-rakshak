@@ -1,16 +1,16 @@
 <?php
 
-namespace Thinkstudeo\Guardian\Policies;
+namespace Thinkstudeo\Rakshak\Policies;
 
 use App\User;
-use Thinkstudeo\Guardian\Ability;
+use Thinkstudeo\Rakshak\Ability;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class AbilityPolicy
 {
     use HandlesAuthorization;
 
-    public function before($user, $ability)
+    public function before($user)
     {
         if ($user->isSuperUser()) {
             return true;
@@ -25,19 +25,19 @@ class AbilityPolicy
      */
     public function index(User $user)
     {
-        return $user->hasAbility('manage_users');
+        return $user->hasRole('rakshak');
     }
 
     /**
      * Determine whether the user can view the role.
      *
      * @param  \App\User  $user
-     * @param  \Thinkstudeo\Guardian\Ability  $ability
+     * @param  \Thinkstudeo\Rakshak\Ability  $ability
      * @return mixed
      */
     public function view(User $user, Ability $ability)
     {
-        return $user->hasAbility('manage_users');
+        return $user->hasRole('rakshak');
     }
 
     /**
@@ -48,30 +48,30 @@ class AbilityPolicy
      */
     public function create(User $user)
     {
-        return $user->hasAbility('manage_users');
+        return $user->hasRole('rakshak');
     }
 
     /**
      * Determine whether the user can update the role.
      *
      * @param  \App\User  $user
-     * @param  \Thinkstudeo\Guardian\Ability  $ability
+     * @param  \Thinkstudeo\Rakshak\Ability  $ability
      * @return mixed
      */
     public function update(User $user, Ability $ability)
     {
-        return $user->hasAbility('manage_users');
+        return $user->hasRole('rakshak');
     }
 
     /**
      * Determine whether the user can delete the role.
      *
      * @param  \App\User  $user
-     * @param  \Thinkstudeo\Guardian\Ability  $ability
+     * @param  \Thinkstudeo\Rakshak\Ability  $ability
      * @return mixed
      */
     public function delete(User $user, Ability $ability)
     {
-        return $user->hasAbility('manage_users');
+        return $user->hasRole('rakshak');
     }
 }

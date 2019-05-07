@@ -1,6 +1,6 @@
 <?php
 
-namespace Thinkstudeo\Guardian\Middleware;
+namespace Thinkstudeo\Rakshak\Middleware;
 
 use Illuminate\Http\Response;
 

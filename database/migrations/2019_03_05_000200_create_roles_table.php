@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Thinkstudeo\Rakshak\Role;
 
 class CreateRolesTable extends Migration
 {
@@ -25,7 +26,8 @@ class CreateRolesTable extends Migration
             $table->primary('id');
         });
 
-        Role::create(['name' => 'super', 'label' => 'Super User', 'description' => 'All abilities for the application interaction.']);
+        Role::create(['name' => config('rakshak.roles.super_user'), 'label' => 'Super User', 'description' => 'All abilities for the application interaction.']);
+        Role::create(['name' => config('rakshak.roles.authorizer'), 'label' => 'Roles & Abilities Manager', 'description' => 'Can perform crud ops for Role and Ability']);
     }
 
     /**

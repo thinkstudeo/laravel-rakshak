@@ -5,7 +5,7 @@
         <div class="w-full flex justify-between items-center">
             <h1 class="text-2xl text-grey-dark font-medium my-8">Roles</h1>
             <a 
-                href="{{ route('guardian.roles.create') }}" 
+                href="{{ route('rakshak.roles.create') }}" 
                 class="px-4 py-2 bg-purple text-purple-lightest hover:bg-purple-darker transition-05"
             >Add Role</a>
         </div>

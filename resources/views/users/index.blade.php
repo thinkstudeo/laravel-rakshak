@@ -23,12 +23,12 @@
                         <td class="flex-1 p-4">{{ $user->username }}</td>
                         <td class="flex-1 p-4">{{ $user->mobile }}</td>
                         <td class="flex p-4">
-                            <button class="text-sm text-grey mr-4" href="{{ route('guardian.users.edit', ['id' => $user->id]) }}" title="edit">
+                            <button class="text-sm text-grey mr-4" href="{{ route('rakshak.users.edit', ['id' => $user->id]) }}" title="edit">
                                 <svg class="w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                     <path d="M12.3 3.7l4 4L4 20H0v-4L12.3 3.7zm1.4-1.4L16 0l4 4-2.3 2.3-4-4z"/>
                                 </svg>
                             </button>
-                            <form action="{{  route('guardian.users.destroy', ['id' => $user->id]) }}" method="POST">
+                            <form action="{{  route('rakshak.users.destroy', ['id' => $user->id]) }}" method="POST">
                                 @csrf
                                 <input type="text" class="hidden" name="_method" value="DELETE">
                                 <button class="text-sm text-grey" type="submit" title="delete">

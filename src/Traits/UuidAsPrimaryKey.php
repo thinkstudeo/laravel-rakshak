@@ -1,6 +1,6 @@
 <?php
 
-namespace Thinkstudeo\Guardian\Traits;
+namespace Thinkstudeo\Rakshak\Traits;
 
 use Illuminate\Support\Str;
 

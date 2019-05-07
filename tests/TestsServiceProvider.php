@@ -1,11 +1,11 @@
 <?php
 
-namespace Thinkstudeo\Guardian\Tests;
+namespace Thinkstudeo\Rakshak\Tests;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
-use Thinkstudeo\Guardian\Guardian;
+use Thinkstudeo\Rakshak\Rakshak;
 use Illuminate\Support\Facades\Artisan;
 
 class TestsServiceProvider extends ServiceProvider
@@ -30,7 +30,7 @@ class TestsServiceProvider extends ServiceProvider
     {
         parent::boot();
 
-        Guardian::routes();
+        Rakshak::routes();
 
         file_put_contents(app_path('Http/Controllers/Controller.php'), file_get_contents(__DIR__ . '/stubs/Controller.stub'));
     }

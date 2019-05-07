@@ -1,9 +1,9 @@
 <?php
 
-namespace Thinkstudeo\Guardian\Tests\Feature;
+namespace Thinkstudeo\Rakshak\Tests\Feature;
 
 use Illuminate\Support\Facades\Schema;
-use Thinkstudeo\Guardian\Tests\TestCase;
+use Thinkstudeo\Rakshak\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class InstallCommandTest extends TestCase

@@ -1,12 +1,12 @@
 <?php
 
-namespace Thinkstudeo\Guardian\Policies;
+namespace Thinkstudeo\Rakshak\Policies;
 
 use App\User;
-use Thinkstudeo\Guardian\GuardianSetting;
+use Thinkstudeo\Rakshak\RakshakSetting;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class GuardianSettingPolicy
+class RakshakSettingPolicy
 {
     use HandlesAuthorization;
 
@@ -32,10 +32,10 @@ class GuardianSettingPolicy
      * Determine whether the user can view the role.
      *
      * @param  \App\User  $user
-     * @param  \Thinkstudeo\Guardian\GuardianSetting  $setting
+     * @param  \Thinkstudeo\Rakshak\RakshakSetting  $setting
      * @return mixed
      */
-    public function view(User $user, GuardianSetting $setting)
+    public function view(User $user, RakshakSetting $setting)
     {
         return false;
     }
@@ -55,10 +55,10 @@ class GuardianSettingPolicy
      * Determine whether the user can update the role.
      *
      * @param  \App\User  $user
-     * @param  \Thinkstudeo\Guardian\GuardianSetting  $setting
+     * @param  \Thinkstudeo\Rakshak\RakshakSetting  $setting
      * @return mixed
      */
-    public function update(User $user, GuardianSetting $setting)
+    public function update(User $user, RakshakSetting $setting)
     {
         return false;
     }
@@ -67,10 +67,10 @@ class GuardianSettingPolicy
      * Determine whether the user can delete the role.
      *
      * @param  \App\User  $user
-     * @param  \Thinkstudeo\Guardian\GuardianSetting  $setting
+     * @param  \Thinkstudeo\Rakshak\RakshakSetting  $setting
      * @return mixed
      */
-    public function delete(User $user, GuardianSetting $setting)
+    public function delete(User $user, RakshakSetting $setting)
     {
         return false;
     }

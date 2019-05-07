@@ -1,12 +1,12 @@
 <?php
 
-namespace Thinkstudeo\Guardian\Http\Controllers;
+namespace Thinkstudeo\Rakshak\Http\Controllers;
 
-use Thinkstudeo\Guardian\GuardianSetting;
+use Thinkstudeo\Rakshak\RakshakSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
-class GuardianSettingsController extends Controller
+class RakshakSettingsController extends Controller
 {
 
     /**
@@ -17,10 +17,10 @@ class GuardianSettingsController extends Controller
      */
     public function edit()
     {
-        $setting = GuardianSetting::first();
+        $setting = RakshakSetting::first();
         $this->authorize('update', $setting);
 
-        return view('guardian::settings.edit', compact('setting'));
+        return view('rakshak::settings.edit', compact('setting'));
     }
 
     /**
@@ -31,7 +31,7 @@ class GuardianSettingsController extends Controller
      */
     public function update(Request $request)
     {
-        $setting = GuardianSetting::first();
+        $setting = RakshakSetting::first();
         $this->authorize('update', $setting);
 
         $validated = $request->validate([
@@ -44,25 +44,25 @@ class GuardianSettingsController extends Controller
         $this->updateCache($setting);
 
         if ($request->expectsJson()) {
-            return response(['message' => 'Guardian settings updated successfully!', 'record' => $setting], 200);
+            return response(['message' => 'Rakshak settings updated successfully!', 'record' => $setting], 200);
         }
 
         return redirect()
             ->back()
             ->with("status", "success")
-            ->with("message", "Guardian settings updated successfully.");
+            ->with("message", "Rakshak settings updated successfully.");
     }
 
     /**
      * Update the values for the cache keys.
      *
-     * @param GuardianSetting $setting
+     * @param RakshakSetting $setting
      * @return void
      */
     protected function updateCache($setting)
     {
-        Cache::forever('guardian.enable_2fa', $setting->enable_2fa);
-        Cache::forever('guardian.channel_2fa', $setting->channel_2fa);
-        Cache::forever('guardian.control_level_2fa', $setting->control_level_2fa);
+        Cache::forever('rakshak.enable_2fa', $setting->enable_2fa);
+        Cache::forever('rakshak.channel_2fa', $setting->channel_2fa);
+        Cache::forever('rakshak.control_level_2fa', $setting->control_level_2fa);
     }
 }

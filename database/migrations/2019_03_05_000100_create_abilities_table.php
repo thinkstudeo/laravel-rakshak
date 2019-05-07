@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use Thinkstudeo\Guardian\Ability;
+use Thinkstudeo\Rakshak\Ability;
 
 class CreateAbilitiesTable extends Migration
 {

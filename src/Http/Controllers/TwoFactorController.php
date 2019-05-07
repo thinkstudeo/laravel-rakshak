@@ -1,6 +1,6 @@
 <?php
 
-namespace Thinkstudeo\Guardian\Http\Controllers;
+namespace Thinkstudeo\Rakshak\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -14,7 +14,7 @@ class TwoFactorController extends Controller
      */
     public function showOtpForm()
     {
-        return view('guardian::otp.verify');
+        return view('rakshak::otp.verify');
     }
 
     /**
@@ -28,8 +28,7 @@ class TwoFactorController extends Controller
     {
         $request->validate(['otp' => 'required']);
         $user = auth()->user();
-        if ($request->otp === $user->otp_token)
-        {
+        if ($request->otp === $user->otp_token) {
             $user->otp_expiry = Carbon::now()->addMinutes(config('session.lifetime'));
             $user->save();
 

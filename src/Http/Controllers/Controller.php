@@ -1,6 +1,6 @@
 <?php
 
-namespace Thinkstudeo\Guardian\Http\Controllers;
+namespace Thinkstudeo\Rakshak\Http\Controllers;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;

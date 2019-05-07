@@ -1,6 +1,6 @@
 <?php
 
-namespace {{namespace}}Notifications\Guardian;
+namespace {{namespace}}Notifications\Rakshak;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
@@ -32,7 +32,7 @@ class RegistrationWelcomeSms extends Notification
     {
         return (new TextlocalMessage)
             ->transactional()
-            ->content(sprintf(config('guardian.textlocal.register.welcome_template'), $notifiable->otp_token))
-            ->from(config('services.textlocal.promotional.from', 'TXTLCL'));
+            ->content(sprintf(config('rakshak.register.welcome_template'), $notifiable->otp_token))
+            ->from(config('rakshak.sender.sms.from', 'TXTLCL'));
     }
 }

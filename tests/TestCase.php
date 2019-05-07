@@ -1,11 +1,11 @@
 <?php
 
-namespace Thinkstudeo\Guardian\Tests;
+namespace Thinkstudeo\Rakshak\Tests;
 
-use Thinkstudeo\Guardian\Guardian;
-use Thinkstudeo\Guardian\Tests\Setup\TestViews;
-use Thinkstudeo\Guardian\Tests\Setup\TestConfig;
-use Thinkstudeo\Guardian\Tests\Setup\TestRoutes;
+use Thinkstudeo\Rakshak\Rakshak;
+use Thinkstudeo\Rakshak\Tests\Setup\TestViews;
+use Thinkstudeo\Rakshak\Tests\Setup\TestConfig;
+use Thinkstudeo\Rakshak\Tests\Setup\TestRoutes;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
 class TestCase extends OrchestraTestCase
@@ -16,8 +16,8 @@ class TestCase extends OrchestraTestCase
 
         $this->loadMigrations();
         $this->withFactories(__DIR__ . '/../database/factories');
-        // $this->loadCache();
-        file_put_contents(app_path('User.php'), file_get_contents(guardian_test_path('stubs/User.stub')));
+        $this->loadCache();
+        file_put_contents(app_path('User.php'), file_get_contents(rakshak_test_path('stubs/User.stub')));
     }
 
     /**
@@ -51,7 +51,7 @@ class TestCase extends OrchestraTestCase
      */
     protected function loadCache()
     {
-        Guardian::loadCache();
+        Rakshak::loadCache();
     }
 
     /**
@@ -64,8 +64,8 @@ class TestCase extends OrchestraTestCase
     {
         return [
             \Orchestra\Database\ConsoleServiceProvider::class,
-            \Thinkstudeo\Guardian\GuardianServiceProvider::class,
-            \Thinkstudeo\Guardian\Tests\TestsServiceProvider::class
+            \Thinkstudeo\Rakshak\RakshakServiceProvider::class,
+            \Thinkstudeo\Rakshak\Tests\TestsServiceProvider::class
         ];
     }
 
@@ -78,7 +78,7 @@ class TestCase extends OrchestraTestCase
     protected function getPackageAliases($app)
     {
         return [
-            'Guardian' => \Thinkstudeo\Guardian\Guardian::class,
+            'Rakshak' => \Thinkstudeo\Rakshak\Rakshak::class,
         ];
     }
 
@@ -110,6 +110,32 @@ class TestCase extends OrchestraTestCase
     }
 
     /**
+     * Create a new user and assign the super role, then log in the user.
+     *
+     * @return void
+     */
+    public function signInSuperUser()
+    {
+        $superUser = factory(config('auth.providers.users.model'))->create();
+        $superUser->assignRole('super');
+
+        $this->actingAs($superUser);
+    }
+
+    /**
+     * Create a new user and assign the rakshak role, then log in the user.
+     *
+     * @return void
+     */
+    public function signInRakshak()
+    {
+        $rakshak = factory(config('auth.providers.users.model'))->create();
+        $rakshak->assignRole('super');
+
+        $this->actingAs($rakshak);
+    }
+
+    /**
      * Create a new user and assign the hr_manager role, then log in the user.
      *
      * @return void
@@ -119,18 +145,6 @@ class TestCase extends OrchestraTestCase
         $hrManager = factory(config('auth.providers.users.model'))->states('HrManager')->create();
 
         $this->actingAs($hrManager);
-    }
-
-    /**
-     * Create a new user and assign the super role, then log in the user.
-     *
-     * @return void
-     */
-    public function signInSuperUser()
-    {
-        $superUser = factory(config('auth.providers.users.model'))->states('SuperUser')->create();
-
-        $this->actingAs($superUser);
     }
 
     /**

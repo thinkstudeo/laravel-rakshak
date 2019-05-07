@@ -27,12 +27,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Thinkstudeo\\Guardian\\": "src/"
+      "Thinkstudeo\\Rakshak\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Thinkstudeo\\Guardian\\Tests\\": "tests/",
+      "Thinkstudeo\\Rakshak\\Tests\\": "tests/",
       "App\\": "vendor/orchestra/testbench-core/laravel/app/"
     },
     "files": [
@@ -46,10 +46,10 @@
     },
     "laravel": {
       "providers": [
-        "Thinkstudeo\\Guardian\\GuardianServiceProvider"
+        "Thinkstudeo\\Rakshak\\RakshakServiceProvider"
       ],
       "alias": {
-        "Guardian": "Thinkstudeo\\Guardian\\Guardian"
+        "Rakshak": "Thinkstudeo\\Rakshak\\Rakshak"
       }
     }
   },

@@ -1,10 +1,10 @@
 <?php
 
-namespace Thinkstudeo\Guardian\Tests\Feature;
+namespace Thinkstudeo\Rakshak\Tests\Feature;
 
-use Thinkstudeo\Guardian\Role;
-use Thinkstudeo\Guardian\Ability;
-use Thinkstudeo\Guardian\Tests\TestCase;
+use Thinkstudeo\Rakshak\Role;
+use Thinkstudeo\Rakshak\Ability;
+use Thinkstudeo\Rakshak\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ManageRolesTest extends TestCase
@@ -14,7 +14,7 @@ class ManageRolesTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->signInHrManager();
+        $this->signInRakshak();
     }
 
     /** @test */
@@ -24,7 +24,7 @@ class ManageRolesTest extends TestCase
         $this->signOut();
         $role = make(Role::class);
 
-        $this->postJson(route('guardian.roles.store'), $role->toArray())
+        $this->postJson(route('rakshak.roles.store'), $role->toArray())
             ->assertStatus(401);
     }
 
@@ -35,16 +35,16 @@ class ManageRolesTest extends TestCase
         $this->signIn();
         $role = make(Role::class);
 
-        $this->postJson(route('guardian.roles.store'), $role->toArray())
+        $this->postJson(route('rakshak.roles.store'), $role->toArray())
             ->assertStatus(403);
     }
 
     /** @test */
     public function authorized_users_can_view_the_form_to_create_a_new_role()
     {
-        $this->get(route('guardian.roles.create'))
+        $this->get(route('rakshak.roles.create'))
             ->assertStatus(200)
-            ->assertViewIs('guardian::roles.create')
+            ->assertViewIs('rakshak::roles.create')
             ->assertViewHas('abilities');
     }
 
@@ -53,7 +53,7 @@ class ManageRolesTest extends TestCase
     {
         $role = make(Role::class);
 
-        $this->postJson(route('guardian.roles.store'), $role->toArray())
+        $this->postJson(route('rakshak.roles.store'), $role->toArray())
             ->assertStatus(201);
         $this->assertDatabaseHas('roles', ['name' => $role->name]);
     }
@@ -62,7 +62,7 @@ class ManageRolesTest extends TestCase
     public function authorized_users_can_view_a_list_of_all_existing_roles()
     {
         $role = create(Role::class, ['name' => 'Role 1', 'description' => 'Description for Role 1']);
-        $this->get(route('guardian.roles.index'))
+        $this->get(route('rakshak.roles.index'))
             ->assertStatus(200)
             ->assertSee($role->name)
             ->assertSee($role->label)
@@ -81,7 +81,7 @@ class ManageRolesTest extends TestCase
             'abilities' => [$ability1->toArray(), $ability2->toArray()]
         ]);
         // dd($data);
-        $this->postJson(route('guardian.roles.store'), $data)
+        $this->postJson(route('rakshak.roles.store'), $data)
             ->assertStatus(201);
 
         $this->assertTrue($ability1->fresh()->roles->first()->name === $role->name);
@@ -92,9 +92,9 @@ class ManageRolesTest extends TestCase
     public function authorized_users_can_view_the_form_to_edit_a_role()
     {
         $role = create(Role::class);
-        $this->get(route('guardian.roles.edit', $role->id))
+        $this->get(route('rakshak.roles.edit', $role->id))
             ->assertStatus(200)
-            ->assertViewIs('guardian::roles.edit')
+            ->assertViewIs('rakshak::roles.edit')
             ->assertViewHasAll(['role', 'abilities'])
             ->assertStatus(200)
             ->assertSee($role->name)
@@ -110,7 +110,7 @@ class ManageRolesTest extends TestCase
         $role->name        = 'Changed Name';
         $role->description = 'Updated description.';
 
-        $this->patchJson(route('guardian.roles.update', $role->id), $role->toArray())
+        $this->patchJson(route('rakshak.roles.update', $role->id), $role->toArray())
             ->assertStatus(200)
             ->assertJsonFragment(['message' => "The role {$role->name} has been updated."]);
 
@@ -124,7 +124,7 @@ class ManageRolesTest extends TestCase
         $ability1 = create(Ability::class, ['name' => 'ability_1']);
         $data     = array_merge($role->toArray(), ['abilities' => [$ability1->toArray()]]);
 
-        $r = $this->patchJson(route('guardian.roles.update', $role->id), $data)
+        $r = $this->patchJson(route('rakshak.roles.update', $role->id), $data)
             ->assertStatus(200);
         $this->assertCount(1, $role->fresh()->abilities);
         $this->assertTrue($role->fresh()->abilities->first()->name === $ability1->name);
@@ -132,13 +132,13 @@ class ManageRolesTest extends TestCase
         $ability2 = create(Ability::class);
         $data     = array_merge($role->toArray(), ['abilities' => [$ability2->toArray()]]);
 
-        $this->patchJson(route('guardian.roles.update', $role->id), $data)->assertStatus(200);
+        $this->patchJson(route('rakshak.roles.update', $role->id), $data)->assertStatus(200);
         $this->assertCount(1, $role->fresh()->abilities);
         $this->assertTrue($role->fresh()->abilities->first()->name === $ability2->name);
 
         $data     = array_merge($role->toArray(), ['abilities' => [$ability1->toArray(), $ability2->toArray()]]);
 
-        $this->patchJson(route('guardian.roles.update', $role->id), $data)->assertStatus(200);
+        $this->patchJson(route('rakshak.roles.update', $role->id), $data)->assertStatus(200);
         $this->assertCount(2, $role->fresh()->abilities);
         $this->assertTrue($role->fresh()->abilities->where('name', $ability1->name)->count() === 1);
         $this->assertTrue($role->fresh()->abilities->where('name', $ability2->name)->count() === 1);
@@ -149,12 +149,9 @@ class ManageRolesTest extends TestCase
     {
         $role = create(Role::class, ['name' => 'sales_manager']);
 
-        //Role with a name of hr_manager exists already,
-        //as it is required to login a user with authorization for CRUD ops on Role
-        $this->assertCount(2, Role::all());
         $this->assertDatabaseHas('roles', ['name' => 'sales_manager']);
 
-        $this->deleteJson(route('guardian.roles.destroy', $role->id))
+        $this->deleteJson(route('rakshak.roles.destroy', $role->id))
             ->assertStatus(200);
         $this->assertDatabaseMissing('roles', ['name' => 'sales_manager']);
     }
@@ -165,7 +162,7 @@ class ManageRolesTest extends TestCase
         $role = make(Role::class, [
             'name' => null
         ]);
-        $this->postJson(route('guardian.roles.store'), $role->toArray())
+        $this->postJson(route('rakshak.roles.store'), $role->toArray())
             ->assertStatus(422)
             ->assertJsonValidationErrors('name')
             ->assertJsonFragment(['name' => ['The name field is required.']]);
@@ -178,7 +175,7 @@ class ManageRolesTest extends TestCase
             'name' => 'ab'
         ]);
 
-        $this->postJson(route('guardian.roles.store'), $role->toArray())
+        $this->postJson(route('rakshak.roles.store'), $role->toArray())
             ->assertStatus(422)
             ->assertJsonValidationErrors('name')
             ->assertJsonFragment(['name' => ['The name must be at least 3 characters.']]);
@@ -191,7 +188,7 @@ class ManageRolesTest extends TestCase
             'name' => 1234
         ]);
 
-        $this->postJson(route('guardian.roles.store'), $role->toArray())
+        $this->postJson(route('rakshak.roles.store'), $role->toArray())
             ->assertStatus(422)
             ->assertJsonValidationErrors('name')
             ->assertJsonFragment(['name' => ['The name must be a string.']]);
@@ -203,7 +200,7 @@ class ManageRolesTest extends TestCase
         $role = create(Role::class, ['name' => 'sales_manager']);
 
         $newRole = make(Role::class, ['name' => 'sales_manager']);
-        $this->postJson(route('guardian.roles.store'), $newRole->toArray())
+        $this->postJson(route('rakshak.roles.store'), $newRole->toArray())
             ->assertStatus(422)
             ->assertJsonFragment(['name' => ['The name has already been taken.']]);
     }
@@ -213,10 +210,10 @@ class ManageRolesTest extends TestCase
     {
         $this->withoutExceptionHandling();
         $role = make(Role::class, [
-            'name' => 'Super'
+            'name' => 'Super User'
         ]);
 
-        $this->postJson(route('guardian.roles.store'), $role->toArray())
+        $this->postJson(route('rakshak.roles.store'), $role->toArray())
             ->assertStatus(201)
             ->assertJsonFragment(['message' => "New role {$role->name} has been created."]);
     }
@@ -228,7 +225,7 @@ class ManageRolesTest extends TestCase
             'description' => null
         ]);
 
-        $this->postJson(route('guardian.roles.store'), $role->toArray())
+        $this->postJson(route('rakshak.roles.store'), $role->toArray())
             ->assertStatus(422)
             ->assertJsonValidationErrors('description')
             ->assertJsonFragment(['description' => ['The description field is required.']]);
@@ -241,7 +238,7 @@ class ManageRolesTest extends TestCase
             'description' => 1234
         ]);
 
-        $this->postJson(route('guardian.roles.store'), $role->toArray())
+        $this->postJson(route('rakshak.roles.store'), $role->toArray())
             ->assertStatus(422)
             ->assertJsonValidationErrors('description')
             ->assertJsonFragment(['description' => ['The description must be a string.']]);
@@ -254,7 +251,7 @@ class ManageRolesTest extends TestCase
             'description' => 'A Valid description'
         ]);
 
-        $this->postJson(route('guardian.roles.store'), $role->toArray())
+        $this->postJson(route('rakshak.roles.store'), $role->toArray())
             ->assertStatus(201)
             ->assertJsonFragment(['message' => "New role {$role->name} has been created."]);
     }
@@ -264,7 +261,7 @@ class ManageRolesTest extends TestCase
     {
         $role = make(Role::class, ['name' => 'sales_manager']);
 
-        $this->postJson(route('guardian.roles.store'), $role->toArray())
+        $this->postJson(route('rakshak.roles.store'), $role->toArray())
             ->assertStatus(201);
 
         $role = Role::whereName($role->name)->firstOrFail();

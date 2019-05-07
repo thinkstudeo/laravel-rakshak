@@ -1,18 +1,18 @@
 <?php
 
-namespace Thinkstudeo\Guardian\Tests\Feature;
+namespace Thinkstudeo\Rakshak\Tests\Feature;
 
 
-use Thinkstudeo\Guardian\Tests\TestCase;
+use Thinkstudeo\Rakshak\Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Thinkstudeo\Guardian\Tests\Fixtures\User;
-use Thinkstudeo\Guardian\Role;
-use Thinkstudeo\Guardian\Tests\Fixtures\Notifications\TemporaryPasswordMail;
+use Thinkstudeo\Rakshak\Tests\Fixtures\User;
+use Thinkstudeo\Rakshak\Role;
+use Thinkstudeo\Rakshak\Tests\Fixtures\Notifications\TemporaryPasswordMail;
 use Illuminate\Support\Facades\Notification;
-use Thinkstudeo\Guardian\Tests\Fixtures\Notifications\SendLoginOtpMail;
+use Thinkstudeo\Rakshak\Tests\Fixtures\Notifications\SendLoginOtpMail;
 use Illuminate\Support\Carbon;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Artisan;

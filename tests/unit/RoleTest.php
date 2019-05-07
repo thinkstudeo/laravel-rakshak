@@ -1,10 +1,10 @@
 <?php
 
-namespace Thinkstudeo\Guardian\Tests\Unit;
+namespace Thinkstudeo\Rakshak\Tests\Unit;
 
-use Thinkstudeo\Guardian\Role;
-use Thinkstudeo\Guardian\Ability;
-use Thinkstudeo\Guardian\Tests\TestCase;
+use Thinkstudeo\Rakshak\Role;
+use Thinkstudeo\Rakshak\Ability;
+use Thinkstudeo\Rakshak\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class RoleTest extends TestCase

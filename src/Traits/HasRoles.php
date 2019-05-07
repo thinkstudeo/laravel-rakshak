@@ -1,9 +1,9 @@
 <?php
 
-namespace Thinkstudeo\Guardian\Traits;
+namespace Thinkstudeo\Rakshak\Traits;
 
-use Thinkstudeo\Guardian\Role;
-use Thinkstudeo\Guardian\Ability;
+use Thinkstudeo\Rakshak\Role;
+use Thinkstudeo\Rakshak\Ability;
 
 trait HasRoles
 {
@@ -25,7 +25,7 @@ trait HasRoles
      */
     public function assignRole($role)
     {
-        $model = $role instanceof \Thinkstudeo\Guardian\Role ? $role : Role::whereName($role)->firstOrFail();
+        $model = $role instanceof \Thinkstudeo\Rakshak\Role ? $role : Role::whereName($role)->firstOrFail();
 
         $this->roles()->save($model);
 
@@ -40,7 +40,7 @@ trait HasRoles
      */
     public function retractRole($role)
     {
-        $model = $role instanceof \Thinkstudeo\Guardian\Role ? $role : Role::whereName($role)->firstOrFail();
+        $model = $role instanceof \Thinkstudeo\Rakshak\Role ? $role : Role::whereName($role)->firstOrFail();
 
         $this->roles()->detach($model->id);
 

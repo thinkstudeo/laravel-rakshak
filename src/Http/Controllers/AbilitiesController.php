@@ -1,9 +1,9 @@
 <?php
 
-namespace Thinkstudeo\Guardian\Http\Controllers;
+namespace Thinkstudeo\Rakshak\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Thinkstudeo\Guardian\Ability;
+use Thinkstudeo\Rakshak\Ability;
 
 class AbilitiesController extends Controller
 {
@@ -34,7 +34,7 @@ class AbilitiesController extends Controller
 
         $abilities = Ability::all();
 
-        return view('guardian::abilities.index', compact('abilities'));
+        return view('rakshak::abilities.index', compact('abilities'));
     }
 
     /**
@@ -46,7 +46,7 @@ class AbilitiesController extends Controller
     {
         $ability = new Ability();
 
-        return view('guardian::abilities.create', compact('ability'));
+        return view('rakshak::abilities.create', compact('ability'));
     }
 
     /**
@@ -67,7 +67,7 @@ class AbilitiesController extends Controller
             return response()->json(['message' => "New ability {$ability->name} has been created.", 'record' => $ability], 201);
         }
 
-        return redirect(route('guardian.abilities.index'))
+        return redirect(route('rakshak.abilities.index'))
             ->with('status', 'success')
             ->with('message', "Ability {$ability->name} has been created.");
     }
@@ -82,14 +82,14 @@ class AbilitiesController extends Controller
     {
         $this->authorize('update', $ability);
 
-        return view('guardian::abilities.edit', compact('ability'));
+        return view('rakshak::abilities.edit', compact('ability'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  Thinkstudeo\Guardian\Ability $ability
+     * @param  Thinkstudeo\Rakshak\Ability $ability
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Ability $ability)
@@ -113,7 +113,7 @@ class AbilitiesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Thinkstudeo\Guardian\Ability $ability
+     * @param  Thinkstudeo\Rakshak\Ability $ability
      * @return \Illuminate\Http\Response
      */
     public function destroy(Ability $ability)
@@ -124,7 +124,7 @@ class AbilitiesController extends Controller
             return response()->json(['message' => "The ability {$ability->name} has been deleted."]);
         }
 
-        return redirect(route('guardian.abilities.index'))
+        return redirect(route('rakshak.abilities.index'))
             ->with('status', 'success')
             ->with('message', "Ability {$ability->name} has been deleted.");
     }

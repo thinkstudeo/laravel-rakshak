@@ -1,6 +1,6 @@
 <?php
 
-namespace Thinkstudeo\Guardian\Console;
+namespace Thinkstudeo\Rakshak\Console;
 
 use Illuminate\Console\Command;
 
@@ -12,18 +12,18 @@ class PublishCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'guardian:publish {--force : Overwrite any existing files}';
+    protected $signature = 'rakshak:publish {--force : Overwrite any existing files}';
 
     /**
      * Describe what the command does.
      *
      * @var string
      */
-    protected $description = 'Publish all Guardian views and config.';
+    protected $description = 'Publish all Rakshak views and config.';
 
     /**
      * Handle the execution logic for the command.
-     * Publish the config and views of Guardian.
+     * Publish the config and views of Rakshak.
      *
      * @return void
      */

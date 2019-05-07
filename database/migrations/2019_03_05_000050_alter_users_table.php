@@ -17,6 +17,7 @@ class AlterUsersTable extends Migration
             $table->string('username')->nullable();
             $table->string('mobile')->nullable();
             $table->timestamp('mobile_verified_at')->nullable();
+            $table->boolean('enable_2fa')->default(false);
             $table->unsignedInteger('otp_token')->nullable();
             $table->timestamp('otp_expiry')->nullable();
             $table->string('otp_channel')->default('email');
@@ -38,6 +39,12 @@ class AlterUsersTable extends Migration
             $table->dropColumn('mobile');
         });
         Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('mobile_verified_at');
+        });
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('enable_2fa');
+        });
+        Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('otp_token');
         });
         Schema::table('users', function (Blueprint $table) {
@@ -45,6 +52,9 @@ class AlterUsersTable extends Migration
         });
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('otp_channel');
+        });
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('status');
         });
     }
 }

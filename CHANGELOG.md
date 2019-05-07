@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to `Guardian` will be documented in this file
+All notable changes to `Rakshak` will be documented in this file
 
 ## 1.0.0 - 2019-08-05
 

@@ -20,7 +20,7 @@ This package extends the authentication and authorization in a Lavarel applicati
   - [Config](#config)
   - [Usage](#usage)
     - [Two Factor Authentication](#two-factor-authentication)
-    - [HasGuardian trait](#hasguardian-trait)
+    - [HasRakshak trait](#hasrakshak-trait)
       - [Adding and Retracting Ability to a Role](#adding-and-retracting-ability-to-a-role)
       - [Assigning and Retracting Role to User](#assigning-and-retracting-role-to-user)
       - [Check if the User has role](#check-if-the-user-has-role)
@@ -42,25 +42,38 @@ This package extends the authentication and authorization in a Lavarel applicati
 ## Installation
 
 ```bash
-$ composer require thinkstudeo/guardian
+$ composer require thinkstudeo/rakshak
 ```
 Then use the artisan command to install/integrate the package with your Laravel application.
 ```bash
-$ php artisan guardian:install
+$ php artisan rakshak:install
 ```
 The artisan command will:
 - register the authentication routes
 - provide the authentication views (very similar to the `auth:make` command)
-- publish the views for managing crud for **Roles, Abilities and Guardian settings**
+- publish the views for managing crud for **Roles, Abilities and Rakshak settings**
 - register two middlewares
-  - `guardian.2fa` to verify otp, providing 2fa protection for routes
+  - `rakshak.2fa` to verify otp, providing 2fa protection for routes
   - `role` to provide authorization protection for routes
-- publish the package config `guardian.php` to the `config` folder
+- publish the package config `rakshak.php` to the `config` folder
 
 Finally migrate the database
 ``bash
 $ php artisan migrate
 ``
+Migration will alter the `users` table to add 
+- username
+- mobile
+- mobile_verified_at
+- enable_2fa
+- otp_token
+- otp_expiry
+- otp_channel
+- status (for admin to activate/deactivate user)
+
+Migration will add two roles defined in the `roles` key of the config file.
+Only the User having role `config('rakshak.roles.super_user')` can access the `/rakshak/settings` route to view and edit the Two Factor settings.
+User having either `config('rakshak.roles.super_user')` or `config('rakshak.roles.authorizer')`
 
 **It is recommended to install the package in a fresh Laravel application**
 
@@ -68,11 +81,11 @@ $ php artisan migrate
 
 ## Config
 
-Package config file is published at `config/guardian.php`.
+Package config file is published at `config/rakshak.php`.
 
 It allows to enable ***Two Factor Authentication*** - by default it is not enabled. It also allows to replace/modify the notification used for sending the otp and welcome message on registration.
 
-The default notifications are published in the `app/Notifications/Guardian` directory. You may modify or replace the notifications and then replace the corresponding config key with the FQCN of your new notification.
+The default notifications are published in the `app/Notifications/Rakshak` directory. You may modify or replace the notifications and then replace the corresponding config key with the FQCN of your new notification.
 
 ```php
 <?php
@@ -83,10 +96,10 @@ return [
     | Route Prefix
     |--------------------------------------------------------------------------
     |
-    | This value will be used as route prefix for all guardian routes.
+    | This value will be used as route prefix for all rakshak routes.
     |
     */
-    'route_prefix' => 'guardian',
+    'route_prefix' => 'rakshak',
     /*
     |--------------------------------------------------------------------------
     | Application's User Model
@@ -113,17 +126,49 @@ return [
     */
     'enable_2fa' => false,
     'login'      => [
-        'email'                      => ['App\Notifications\Guardian\LoginOtpMail'],
-        'sms'                        => ['App\Notifications\Guardian\LoginOtpSms'],
-        'verify_mobile'              => ['App\Notifications\Guardian\VerifyMobileOtpSms'],
+        'email'                      => ['App\Notifications\Rakshak\LoginOtpMail'],
+        'sms'                        => ['App\Notifications\Rakshak\LoginOtpSms'],
+        'verify_mobile'              => ['App\Notifications\Rakshak\VerifyMobileOtpSms'],
         'otp_template'               => 'Your OTP for ' . config('app.name') . ' is 234567. It is valid for the next 10 minutes only.',
         'verify_mobile_sms_template' => '%s: Confirmation code to verify your mobile number is %s.'
     ],
     'register' => [
-        'welcome_email'    => ['App\Notifications\Guardian\RegistrationWelcomeEmail'],
-        'welcome_sms'      => ['App\Notifications\Guardian\RegistrationWelcomeSms'],
+        'welcome_email'    => ['App\Notifications\Rakshak\RegistrationWelcomeEmail'],
+        'welcome_sms'      => ['App\Notifications\Rakshak\RegistrationWelcomeSms'],
         'welcome_template' => 'Welcome %s! We are happy to have you onboard. Team %s',
     ],
+    /*
+    |--------------------------------------------------------------------------
+    | Authorisation Roles
+    |--------------------------------------------------------------------------
+    |
+    | Define the name for the super user role.
+    | Define the name for the authorizer user role.
+    | User with authorizer roler can perform crud ops for Role & Ability
+    |
+    */
+    'roles' => [
+        'super_user' => 'super',
+        'authorizer' => 'rakshak'
+    ],
+    /*
+    |--------------------------------------------------------------------------
+    | Sender
+    |--------------------------------------------------------------------------
+    |
+    | Define the sender for email and sms messages.
+    |
+    */
+    'sender' => [
+        'email' => [
+            'from' => env('RAKSHAK_EMAIL_FROM', config('mail.from.address')),
+            'name' => env('RAKSHAK_EMAIL_FROM_NAME', config('mail.from.address'))
+        ],
+        'sms' => [
+            'from' => env('TEXTLOCAL_TRANSACTIONAL_SENDER'),
+            'number' => env('TEXTLOCAL_TRANSACTIONAL_FROM')
+        ]
+    ]
 ];
 ```
 You can use any of the [Laravel Notification channels](http://laravel-notification-channels.com/) for notifications. By default the package includes [Textlocal Notification Channel](https://packagist.org/packages/thinkstudeo/textlocal-notification-channel) for sms messaging.
@@ -133,13 +178,20 @@ You can use any of the [Laravel Notification channels](http://laravel-notificati
 The package provides the option to enable **Two Factor Authentication** as also the level of control i.e. once an administrator enables the `2fa` module it can be applied to all users by the admin or each user can be given the option to enable `2fa` for own use.
 
 ### Two Factor Authentication
-Route: `/guardian/settings` is also provided for if you want to provide an easy way for other/client admins to control the Two Factor Authentication.
+Route: `/rakshak/settings` is also provided for if you want to provide an easy way for other/client admins to control the Two Factor Authentication.
 
-![Guardian Settings](/docs/guardian-settings.png)
+![Rakshak Settings](/docs/rakshak-settings.png)
 
-### HasGuardian trait
+If you want to provide user level control for enabling/disabling Two Factor Authentication, you will need to  implement:
+- Route and Navigation for user to access the settings area
+- Settings view to:
+  -  enable/disable `2fa`, select channel `sms` or default `email`
+  -  check whether mobile (number) is verified if `sms` channel is selected
+  -  Button/link to send otp for mobile (number) verification
 
-The `User.php` file  - as per the `config('auth.providers.users.model')` is updated to use the `HasGuardian` trait. The trait provides a number of functions and `roles` relation to the `User`.
+### HasRakshak trait
+
+The `User.php` file  - as per the `config('auth.providers.users.model')` is updated to use the `HasRakshak` trait. The trait provides a number of functions and `roles` relation to the `User`.
 
 ```php
 $user = User::first();
@@ -223,15 +275,15 @@ $user->hasAnyAbility(['manage_users', 'manage_content']);
 ```
 
 ### Roles and Abilities
-Route: `/guardian/roles` will provide a list of all existing roles
+Route: `/rakshak/roles` will provide a list of all existing roles
 
 ![Roles Listing](/docs/roles-index.png)
 
-Route: `/guardian/roles/{role}/edit` will provide the edit role form
+Route: `/rakshak/roles/{role}/edit` will provide the edit role form
 
 ![Roles Edit](/docs/role-edit.png)
 
-Route: `/guardian/roles/create` will provide the create new role form
+Route: `/rakshak/roles/create` will provide the create new role form
 
 ![Roles Create](/docs/role-create.png)
 

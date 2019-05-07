@@ -1,9 +1,9 @@
 <?php
 
-namespace Thinkstudeo\Guardian\Tests\Feature;
+namespace Thinkstudeo\Rakshak\Tests\Feature;
 
-use Thinkstudeo\Guardian\Ability;
-use Thinkstudeo\Guardian\Tests\TestCase;
+use Thinkstudeo\Rakshak\Ability;
+use Thinkstudeo\Rakshak\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ManageAbilitiesTest extends TestCase
@@ -14,7 +14,7 @@ class ManageAbilitiesTest extends TestCase
     {
         parent::setUp();
 
-        $this->signInHrManager();
+        $this->signInRakshak();
     }
 
     /** @test */
@@ -23,7 +23,7 @@ class ManageAbilitiesTest extends TestCase
         $this->signOut();
 
         $ability = make(Ability::class);
-        $this->postJson(route('guardian.abilities.store'), $ability->toArray())
+        $this->postJson(route('rakshak.abilities.store'), $ability->toArray())
             ->assertStatus(401);
     }
 
@@ -33,23 +33,23 @@ class ManageAbilitiesTest extends TestCase
         $this->signIn();
 
         $ability = make(Ability::class);
-        $this->postJson(route('guardian.abilities.store'), $ability->toArray())
+        $this->postJson(route('rakshak.abilities.store'), $ability->toArray())
             ->assertStatus(403);
     }
 
     /** @test */
     public function authorized_users_can_view_the_form_to_create_a_new_ability()
     {
-        $this->get(route('guardian.abilities.create'))
+        $this->get(route('rakshak.abilities.create'))
             ->assertStatus(200)
-            ->assertViewIs('guardian::abilities.create');
+            ->assertViewIs('rakshak::abilities.create');
     }
 
     /** @test */
     public function authorized_users_may_create_an_ability()
     {
         $ability = make(Ability::class);
-        $this->postJson(route('guardian.abilities.store'), $ability->toArray())
+        $this->postJson(route('rakshak.abilities.store'), $ability->toArray())
             ->assertStatus(201);
     }
 
@@ -57,7 +57,7 @@ class ManageAbilitiesTest extends TestCase
     public function authorized_users_can_view_a_list_of_all_existing_abilities()
     {
         $ability = create(Ability::class, ['name' => 'Ability 1', 'description' => 'Description for Ability 1']);
-        $this->get(route('guardian.abilities.index'))
+        $this->get(route('rakshak.abilities.index'))
             ->assertStatus(200)
             ->assertSee($ability->name)
             ->assertSee($ability->label)
@@ -70,7 +70,7 @@ class ManageAbilitiesTest extends TestCase
         $ability = create(Ability::class, ['name' => 'Ability 1', 'description' => 'Description for Ability 1']);
         $this->get($ability->path() . "/edit")
             ->assertStatus(200)
-            ->assertViewIs('guardian::abilities.edit')
+            ->assertViewIs('rakshak::abilities.edit')
             ->assertSee($ability->name)
             ->assertSee($ability->label)
             ->assertSee($ability->description);
@@ -84,7 +84,7 @@ class ManageAbilitiesTest extends TestCase
 
         $ability->name        = 'Changed Name';
         $ability->description = 'Updated description';
-        $this->patchJson(route('guardian.abilities.update', $ability->id), $ability->toArray())
+        $this->patchJson(route('rakshak.abilities.update', $ability->id), $ability->toArray())
             ->assertStatus(200);
         $this->assertDatabaseMissing('abilities', ['name' => 'Ability 1', 'description' => 'Description for Ability 1']);
         $this->assertDatabaseHas('abilities', ['name' => 'Changed Name', 'description' => 'Updated description']);
@@ -96,7 +96,7 @@ class ManageAbilitiesTest extends TestCase
         $ability = create(Ability::class, ['name' => 'Ability 1']);
         $this->assertDatabaseHas('abilities', ['name' => 'Ability 1']);
 
-        $this->deleteJson(route('guardian.abilities.destroy', $ability->id))
+        $this->deleteJson(route('rakshak.abilities.destroy', $ability->id))
             ->assertStatus(200);
         $this->assertDatabaseMissing('abilities', ['name' => 'Ability 1']);
     }
@@ -106,7 +106,7 @@ class ManageAbilitiesTest extends TestCase
     {
         $ability = make(Ability::class, ['name' => null]);
 
-        $this->postJson(route('guardian.abilities.store'), $ability->toArray())
+        $this->postJson(route('rakshak.abilities.store'), $ability->toArray())
             ->assertStatus(422)
             ->assertJsonValidationErrors('name');
     }
@@ -116,7 +116,7 @@ class ManageAbilitiesTest extends TestCase
     {
         $ability = make(Ability::class, ['name' => 1234]);
 
-        $this->postJson(route('guardian.abilities.store'), $ability->toArray())
+        $this->postJson(route('rakshak.abilities.store'), $ability->toArray())
             ->assertStatus(422)
             ->assertJsonValidationErrors('name');
     }
@@ -128,7 +128,7 @@ class ManageAbilitiesTest extends TestCase
 
         $ability = make(Ability::class, ['name' => 'Ability 1']);
 
-        $this->postJson(route('guardian.abilities.store'), $ability->toArray())
+        $this->postJson(route('rakshak.abilities.store'), $ability->toArray())
             ->assertStatus(422)
             ->assertJsonValidationErrors('name');
     }
@@ -138,7 +138,7 @@ class ManageAbilitiesTest extends TestCase
     {
         $ability = make(Ability::class, ['name' => 'ab']);
 
-        $this->postJson(route('guardian.abilities.store'), $ability->toArray())
+        $this->postJson(route('rakshak.abilities.store'), $ability->toArray())
             ->assertStatus(422)
             ->assertJsonValidationErrors('name');
     }
@@ -148,7 +148,7 @@ class ManageAbilitiesTest extends TestCase
     {
         $ability = make(Ability::class, ['description' => null]);
 
-        $this->postJson(route('guardian.abilities.store'), $ability->toArray())
+        $this->postJson(route('rakshak.abilities.store'), $ability->toArray())
             ->assertStatus(422)
             ->assertJsonValidationErrors('description');
     }
@@ -158,13 +158,13 @@ class ManageAbilitiesTest extends TestCase
     {
         $ability = make(Ability::class, ['description' => 1234]);
 
-        $this->postJson(route('guardian.abilities.store'), $ability->toArray())
+        $this->postJson(route('rakshak.abilities.store'), $ability->toArray())
             ->assertStatus(422)
             ->assertJsonValidationErrors('description');
 
         $ability = make(Ability::class, ['description' => 'A valid description']);
 
-        $this->postJson(route('guardian.abilities.store'), $ability->toArray())
+        $this->postJson(route('rakshak.abilities.store'), $ability->toArray())
             ->assertSessionDoesntHaveErrors('description');
     }
 
@@ -173,7 +173,7 @@ class ManageAbilitiesTest extends TestCase
     {
         $ability = make(Ability::class, ['name' => 'Ability 1']);
 
-        $this->postJson(route('guardian.abilities.store'), $ability->toArray());
+        $this->postJson(route('rakshak.abilities.store'), $ability->toArray());
 
         $this->assertDatabaseHas('abilities', ['name' => 'Ability 1']);
         $savedAbility = Ability::whereName($ability->name)->firstOrFail();

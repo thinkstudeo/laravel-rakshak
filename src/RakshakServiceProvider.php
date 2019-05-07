@@ -1,18 +1,18 @@
 <?php
 
-namespace Thinkstudeo\Guardian;
+namespace Thinkstudeo\Rakshak;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\AliasLoader;
-use Thinkstudeo\Guardian\Console\InstallCommand;
-use Thinkstudeo\Guardian\Console\PublishCommand;
-use Thinkstudeo\Guardian\Middleware\VerifyTwoFactorOtp;
+use Thinkstudeo\Rakshak\Console\InstallCommand;
+use Thinkstudeo\Rakshak\Console\PublishCommand;
+use Thinkstudeo\Rakshak\Middleware\VerifyTwoFactorOtp;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Thinkstudeo\Guardian\Middleware\CheckRole;
+use Thinkstudeo\Rakshak\Middleware\CheckRole;
 use Illuminate\Support\Facades\Blade;
-use Thinkstudeo\Guardian\Support\BladeDirectives;
+use Thinkstudeo\Rakshak\Support\BladeDirectives;
 
-class GuardianServiceProvider extends ServiceProvider
+class RakshakServiceProvider extends ServiceProvider
 {
     /**
      * The policy mappings for the application.
@@ -20,9 +20,9 @@ class GuardianServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        \Thinkstudeo\Guardian\Role::class         => \Thinkstudeo\Guardian\Policies\RolePolicy::class,
-        \Thinkstudeo\Guardian\Ability::class      => \Thinkstudeo\Guardian\Policies\AbilityPolicy::class,
-        \Thinkstudeo\Guardian\GuardianSetting::class => \Thinkstudeo\Guardian\Policies\GuardianSettingPolicy::class
+        \Thinkstudeo\Rakshak\Role::class         => \Thinkstudeo\Rakshak\Policies\RolePolicy::class,
+        \Thinkstudeo\Rakshak\Ability::class      => \Thinkstudeo\Rakshak\Policies\AbilityPolicy::class,
+        \Thinkstudeo\Rakshak\RakshakSetting::class => \Thinkstudeo\Rakshak\Policies\RakshakSettingPolicy::class
     ];
 
     /**
@@ -54,7 +54,7 @@ class GuardianServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/guardian.php', 'guardian');
+        $this->mergeConfigFrom(__DIR__ . '/../config/rakshak.php', 'rakshak');
 
         $this->commands([
             InstallCommand::class,
@@ -65,14 +65,14 @@ class GuardianServiceProvider extends ServiceProvider
     }
 
     /**
-     * Merge the Guardian default config options.
+     * Merge the Rakshak default config options.
      *
      * @return void
      */
     protected function mergeConfig(): void
     {
         if (!$this->app->configurationIsCached()) {
-            $this->mergeConfigFrom(__DIR__ . '/../config/guardian.php', 'guardian');
+            $this->mergeConfigFrom(__DIR__ . '/../config/rakshak.php', 'rakshak');
         }
     }
 
@@ -83,7 +83,7 @@ class GuardianServiceProvider extends ServiceProvider
      */
     protected function registerAliases()
     {
-        AliasLoader::getInstance()->alias('Guardian', Guardian::class);
+        AliasLoader::getInstance()->alias('Rakshak', Rakshak::class);
     }
 
     /**
@@ -93,7 +93,7 @@ class GuardianServiceProvider extends ServiceProvider
      */
     protected function registerMiddleware()
     {
-        Route::aliasMiddleware('guardian.2fa', VerifyTwoFactorOtp::class);
+        Route::aliasMiddleware('rakshak.2fa', VerifyTwoFactorOtp::class);
         Route::aliasMiddleware('role', CheckRole::class);
     }
 
@@ -104,7 +104,7 @@ class GuardianServiceProvider extends ServiceProvider
      */
     protected function registerRoutes()
     {
-        Guardian::routes();
+        Rakshak::routes();
     }
 
     /**
@@ -114,7 +114,7 @@ class GuardianServiceProvider extends ServiceProvider
      */
     public function loadViews()
     {
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'guardian');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'rakshak');
     }
 
     /**
@@ -137,7 +137,7 @@ class GuardianServiceProvider extends ServiceProvider
     protected function loadCache()
     {
         if (env('APP_ENV') !== 'testing') {
-            Guardian::loadCache();
+            Rakshak::loadCache();
         }
     }
 
@@ -150,11 +150,11 @@ class GuardianServiceProvider extends ServiceProvider
     protected function registerPublishes()
     {
         $this->publishes([
-            __DIR__ . '/../resources/views' => resource_path('views/vendor/guardian'),
+            __DIR__ . '/../resources/views' => resource_path('views/vendor/rakshak'),
         ], 'views');
 
         $this->publishes([
-            __DIR__ . '/../config/guardian.php' => config_path('guardian.php'),
+            __DIR__ . '/../config/rakshak.php' => config_path('rakshak.php'),
         ], 'config');
     }
 }

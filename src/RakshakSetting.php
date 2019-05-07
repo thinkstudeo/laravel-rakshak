@@ -1,11 +1,11 @@
 <?php
 
-namespace Thinkstudeo\Guardian;
+namespace Thinkstudeo\Rakshak;
 
 use Illuminate\Database\Eloquent\Model;
-use Thinkstudeo\Guardian\Traits\UuidAsPrimaryKey;
+use Thinkstudeo\Rakshak\Traits\UuidAsPrimaryKey;
 
-class GuardianSetting extends Model
+class RakshakSetting extends Model
 {
     use UuidAsPrimaryKey;
 
@@ -27,7 +27,7 @@ class GuardianSetting extends Model
      *
      * @var string
      */
-    protected $table = 'guardian_settings';
+    protected $table = 'rakshak_settings';
 
     /**
      * The attributes which are protected against mass assignment.

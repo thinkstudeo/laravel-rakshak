@@ -1,8 +1,8 @@
 <?php
 
-namespace Thinkstudeo\Guardian\Traits;
+namespace Thinkstudeo\Rakshak\Traits;
 
-trait HasGuardian
+trait HasRakshak
 {
     use HasRoles;
 
@@ -46,6 +46,6 @@ trait HasGuardian
      */
     public function path()
     {
-        return "/" . config('guardian.route_prefix') . "/users/{$this->{$this->getRouteKeyName()}}";
+        return "/" . config('rakshak.route_prefix') . "/users/{$this->{$this->getRouteKeyName()}}";
     }
 }

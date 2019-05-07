@@ -6,10 +6,10 @@ return [
     | Route Prefix
     |--------------------------------------------------------------------------
     |
-    | This value will be used as route prefix for all guardian routes.
+    | This value will be used as route prefix for all rakshak routes.
     |
     */
-    'route_prefix' => 'guardian',
+    'route_prefix' => 'rakshak',
     /*
     |--------------------------------------------------------------------------
     | Application's User Model
@@ -36,15 +36,47 @@ return [
     */
     'enable_2fa' => false,
     'login'      => [
-        'email'                      => ['App\Notifications\Guardian\LoginOtpMail'],
-        'sms'                        => ['App\Notifications\Guardian\LoginOtpSms'],
-        'verify_mobile'              => ['App\Notifications\Guardian\VerifyMobileOtpSms'],
+        'email'                      => ['App\Notifications\Rakshak\LoginOtpMail'],
+        'sms'                        => ['App\Notifications\Rakshak\LoginOtpSms'],
+        'verify_mobile'              => ['App\Notifications\Rakshak\VerifyMobileOtpSms'],
         'otp_template'               => 'Your OTP for ' . config('app.name') . ' is 234567. It is valid for the next 10 minutes only.',
         'verify_mobile_sms_template' => '%s: Confirmation code to verify your mobile number is %s.'
     ],
     'register' => [
-        'welcome_email'    => ['App\Notifications\Guardian\RegistrationWelcomeEmail'],
-        'welcome_sms'      => ['App\Notifications\Guardian\RegistrationWelcomeSms'],
+        'welcome_email'    => ['App\Notifications\Rakshak\RegistrationWelcomeEmail'],
+        'welcome_sms'      => ['App\Notifications\Rakshak\RegistrationWelcomeSms'],
         'welcome_template' => 'Welcome %s! We are happy to have you onboard. Team %s',
     ],
+    /*
+    |--------------------------------------------------------------------------
+    | Authorisation Roles
+    |--------------------------------------------------------------------------
+    |
+    | Define the name for the super user role.
+    | Define the name for the authorizer user role.
+    | User with authorizer roler can perform crud ops for Role & Ability
+    |
+    */
+    'roles' => [
+        'super_user' => 'super',
+        'authorizer' => 'rakshak'
+    ],
+    /*
+    |--------------------------------------------------------------------------
+    | Sender
+    |--------------------------------------------------------------------------
+    |
+    | Define the sender for email and sms messages.
+    |
+    */
+    'sender' => [
+        'email' => [
+            'from' => env('RAKSHAK_EMAIL_FROM', config('mail.from.address')),
+            'name' => env('RAKSHAK_EMAIL_FROM_NAME', config('mail.from.address'))
+        ],
+        'sms' => [
+            'from' => env('TEXTLOCAL_TRANSACTIONAL_SENDER'),
+            'number' => env('TEXTLOCAL_TRANSACTIONAL_FROM')
+        ]
+    ]
 ];

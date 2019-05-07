@@ -1,10 +1,10 @@
 <?php
 
-namespace Thinkstudeo\Guardian\Tests\Unit;
+namespace Thinkstudeo\Rakshak\Tests\Unit;
 
-use Thinkstudeo\Guardian\Role;
-use Thinkstudeo\Guardian\Ability;
-use Thinkstudeo\Guardian\Tests\TestCase;
+use Thinkstudeo\Rakshak\Role;
+use Thinkstudeo\Rakshak\Ability;
+use Thinkstudeo\Rakshak\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\User;
 use Illuminate\Database\Eloquent\Collection;
@@ -97,7 +97,7 @@ class HasRoleTest extends TestCase
         $user = create(User::class);
         $this->assertFalse($user->isSuperUser());
 
-        $admin = factory(User::class)->state('SuperUser')->create();
-        $this->assertTrue($admin->isSuperUser());
+        $user->assignRole('super');
+        $this->assertTrue($user->fresh()->isSuperUser());
     }
 }

@@ -3,7 +3,7 @@
 @section('content')    
 <div class="w-full bg-white flex justify-center items-start h-full pt-24">
     <div class="lg:w-1/2 lg:max-w-md flex flex-col shadow-md border-t-8 border-purple rounded">
-        <form action="{{ route('guardian.settings.update') }}" method="POST" class="p-8 bg-grey-lighter">
+        <form action="{{ route('rakshak.settings.update') }}" method="POST" class="p-8 bg-grey-lighter">
             @if (session('status'))
                 <div class="bg-green-lightest p-6 text-green-dark border-l-8 border-green-dark mb-4 shadow">
                     {{ session('message') }}
@@ -13,7 +13,7 @@
             @method('PUT')
 
             <div class="mb-10">
-                <h1 class="text-2xl font-bold mb-2">{{ __('Edit Guardian Settings') }}</h1>
+                <h1 class="text-2xl font-bold mb-2">{{ __('Edit Rakshak Settings') }}</h1>
             </div>
 
             <div class="mb-8 flex">

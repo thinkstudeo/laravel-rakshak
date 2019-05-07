@@ -14,7 +14,7 @@ class CreateRoleUserTable extends Migration
     public function up()
     {
         Schema::create('role_user', function (Blueprint $table) {
-            $pkMethod = config('guardian.users.pk_type', 'uuid');
+            $pkMethod = config('rakshak.users.pk_type', 'uuid');
             // dd('pkMethod: ' . $pkMethod);
 
             $table->{$pkMethod}('user_id');
@@ -22,14 +22,14 @@ class CreateRoleUserTable extends Migration
             $table->timestamps();
 
             $table->foreign('user_id')
-                  ->references('id')
-                  ->on('users')
-                  ->onDelete('cascade');
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
 
             $table->foreign('role_id')
-                  ->references('id')
-                  ->on('roles')
-                  ->onDelete('cascade');
+                ->references('id')
+                ->on('roles')
+                ->onDelete('cascade');
 
             $table->primary(['user_id', 'role_id']);
         });

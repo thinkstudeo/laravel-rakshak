@@ -18,9 +18,9 @@ $factory->define(config('auth.providers.users.model'), function (Faker $faker) {
 
 $factory->state(config('auth.providers.users.model'), 'HrManager', ['name' => 'H R Manager'])
     ->afterCreatingState(config('auth.providers.users.model'), 'HrManager', function ($user, $faker) {
-        $manageUsers = create(\Thinkstudeo\Guardian\Ability::class, ['name' => 'manage_users']);
+        $manageUsers = create(\Thinkstudeo\Rakshak\Ability::class, ['name' => 'manage_users']);
 
-        $hrManager = create(\Thinkstudeo\Guardian\Role::class, ['name' => 'hr_manager'])->addAbility($manageUsers);
+        $hrManager = create(\Thinkstudeo\Rakshak\Role::class, ['name' => 'hr_manager'])->addAbility($manageUsers);
         // dd($manageUsers->roles);
         $user->assignRole($hrManager);
     });
@@ -28,17 +28,17 @@ $factory->state(config('auth.providers.users.model'), 'HrManager', ['name' => 'H
 
 $factory->state(config('auth.providers.users.model'), 'ContentManager', ['name' => 'Content Manager'])
     ->afterCreatingState(config('auth.providers.users.model'), 'ContentManager', function ($user, $faker) {
-        $manageContent = create(\Thinkstudeo\Guardian\Ability::class, ['name' => 'manage_content']);
+        $manageContent = create(\Thinkstudeo\Rakshak\Ability::class, ['name' => 'manage_content']);
 
-        $hrManager = create(\Thinkstudeo\Guardian\Role::class, ['name' => 'content_manager'])->addAbility($manageContent);
+        $hrManager = create(\Thinkstudeo\Rakshak\Role::class, ['name' => 'content_manager'])->addAbility($manageContent);
         // dd($manageUsers->roles);
         $user->assignRole($hrManager);
     });
 
-$factory->state(config('auth.providers.users.model'), 'SuperUser', ['name' => 'Super User'])
-    ->afterCreatingState(config('auth.providers.users.model'), 'SuperUser', function ($user, $faker) {
+// $factory->state(config('auth.providers.users.model'), 'SuperUser', ['name' => 'Super User'])
+//     ->afterCreatingState(config('auth.providers.users.model'), 'SuperUser', function ($user, $faker) {
 
-        $superUser = create(\Thinkstudeo\Guardian\Role::class, ['name' => 'super']);
-        // dd($manageUsers->roles);
-        $user->assignRole($superUser);
-    });
+//         $superUser = create(\Thinkstudeo\Rakshak\Role::class, ['name' => 'super']);
+//         // dd($manageUsers->roles);
+//         $user->assignRole($superUser);
+//     });

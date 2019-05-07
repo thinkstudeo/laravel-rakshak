@@ -1,10 +1,10 @@
 <?php
 
-namespace Thinkstudeo\Guardian\Http\Controllers;
+namespace Thinkstudeo\Rakshak\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Thinkstudeo\Guardian\Role;
-use Thinkstudeo\Guardian\Ability;
+use Thinkstudeo\Rakshak\Role;
+use Thinkstudeo\Rakshak\Ability;
 
 class RolesController extends Controller
 {
@@ -33,7 +33,7 @@ class RolesController extends Controller
     public function index()
     {
         $roles = Role::all();
-        return view('guardian::roles.index', compact('roles'));
+        return view('rakshak::roles.index', compact('roles'));
     }
 
 
@@ -47,7 +47,7 @@ class RolesController extends Controller
         $abilities = Ability::whereActive(1)->get();
         $role = new Role();
 
-        return view('guardian::roles.create', compact('abilities', 'role'));
+        return view('rakshak::roles.create', compact('abilities', 'role'));
     }
 
     /**
@@ -74,7 +74,7 @@ class RolesController extends Controller
             return response()->json(['message' => "New role {$role->name} has been created.", 'record' => $role], 201);
         }
 
-        return redirect(route('guardian.roles.index'))
+        return redirect(route('rakshak.roles.index'))
             ->with('status', 'success')
             ->with('message', "Role {$role->name} has been created.");
     }
@@ -82,21 +82,21 @@ class RolesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Thinkstudeo\Guardian\Role $role
+     * @param  Thinkstudeo\Rakshak\Role $role
      * @return \Illuminate\Http\Response
      */
     public function edit(Role $role)
     {
         $abilities = Ability::whereActive(true)->get();
 
-        return view('guardian::roles.edit', compact('role', 'abilities'));
+        return view('rakshak::roles.edit', compact('role', 'abilities'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Thinkstudeo\Guardian\Role $role
+     * @param  \Thinkstudeo\Rakshak\Role $role
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Role $role)
@@ -128,7 +128,7 @@ class RolesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Thinkstudeo\Guardian\Role $role
+     * @param  \Thinkstudeo\Rakshak\Role $role
      * @return \Illuminate\Http\Response
      */
     public function destroy(Role $role)
@@ -139,7 +139,7 @@ class RolesController extends Controller
             return response()->json(['message' => "The role {$role->name} has been deleted."], 200);
         }
 
-        return redirect(route('guardian.roles.index'))
+        return redirect(route('rakshak.roles.index'))
             ->with('status', 'success')
             ->with('message', "Role {$role->name} has been deleted.");
     }

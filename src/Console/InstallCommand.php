@@ -1,12 +1,11 @@
 <?php
 
-namespace Thinkstudeo\Guardian\Console;
+namespace Thinkstudeo\Rakshak\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Console\DetectsApplicationNamespace;
 use Illuminate\Support\Str;
-use PhpOption\Option;
 
 class InstallCommand extends Command
 {
@@ -16,7 +15,7 @@ class InstallCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'guardian:install
+    protected $signature = 'rakshak:install
                     {--views : Only scaffold the authentication views}
                     {--force : Overwrite existing views by default}';
 
@@ -25,7 +24,7 @@ class InstallCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Install Guardian package for Laravel';
+    protected $description = 'Install Rakshak package for Laravel';
 
     /**
      * Handle the execution of the command.
@@ -34,8 +33,8 @@ class InstallCommand extends Command
      */
     public function handle()
     {
-        $this->comment('Publishing Guardian Resources and Assets...');
-        $this->callSilent('guardian:publish', ['--force' => $this->option('force') ? true : false]);
+        $this->comment('Publishing Rakshak Resources and Assets...');
+        $this->callSilent('rakshak:publish', ['--force' => $this->option('force') ? true : false]);
         $this->createDirectories();
 
         $this->comment('Making Auth Routes, Controllers and Views...');
@@ -43,13 +42,13 @@ class InstallCommand extends Command
         $this->makeControllers();
         $this->exportViews();
 
-        $this->comment('Making Guardian Notifications...');
+        $this->comment('Making Rakshak Notifications...');
         $this->exportNotifications();
 
         $this->comment('Updating the User model...');
         $this->updateUserModel();
 
-        $this->info('Guardian scaffolding installed successfully.');
+        $this->info('Rakshak scaffolding installed successfully.');
     }
 
     /**
@@ -128,7 +127,7 @@ class InstallCommand extends Command
             mkdir($directory, 0755, true);
         }
 
-        if (!is_dir($directory = app_path('Notifications/Guardian'))) {
+        if (!is_dir($directory = app_path('Notifications/Rakshak'))) {
             mkdir($directory, 0755, true);
         }
     }
@@ -180,7 +179,7 @@ class InstallCommand extends Command
 
         foreach ($stubs as $stub) {
             $filename = str_replace('stub', 'php', basename($stub));
-            $path = app_path("Notifications/Guardian/{$filename}");
+            $path = app_path("Notifications/Rakshak/{$filename}");
 
             if (!file_exists($path) || $this->option('force')) {
                 file_put_contents(
@@ -205,7 +204,7 @@ class InstallCommand extends Command
             config('auth.providers.users.model')
         ), '\\');
         if (
-            !str_contains(file_get_contents(app_path('User.php')), 'HasGuardian') ||
+            !str_contains(file_get_contents(app_path('User.php')), 'HasRakshak') ||
             $this->option('force')
         ) {
             file_put_contents(

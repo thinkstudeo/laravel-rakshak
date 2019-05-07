@@ -1,6 +1,6 @@
 <?php
 
-namespace Thinkstudeo\Guardian\Tests\Setup;
+namespace Thinkstudeo\Rakshak\Tests\Setup;
 
 use Illuminate\Support\Facades\Route;
 
@@ -17,7 +17,7 @@ class TestRoutes
 
             Route::get('/home', function () {
                 return 'This is home page';
-            })->middleware('auth', 'guardian.2fa');
+            })->middleware('auth', 'rakshak.2fa');
         });
     }
 }

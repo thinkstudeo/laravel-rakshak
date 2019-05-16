@@ -44,7 +44,7 @@ This package extends the authentication and authorization in a Lavarel applicati
 ## Installation
 
 ```bash
-$ composer require thinkstudeo/rakshak
+$ composer require thinkstudeo/laravel-rakshak
 ```
 Then use the artisan command to install/integrate the package with your Laravel application.
 ```bash

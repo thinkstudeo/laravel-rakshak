@@ -182,7 +182,7 @@ The package provides the option to enable **Two Factor Authentication** as also 
 ### Two Factor Authentication
 Route: `/rakshak/settings` is also provided for if you want to provide an easy way for other/client admins to control the Two Factor Authentication.
 
-![Rakshak Settings](/docs/rakshak-settings.png)
+![Rakshak Settings](/docs/guardian-settings.png)
 
 If you want to provide user level control for enabling/disabling Two Factor Authentication, you will need to  implement:
 - Route and Navigation for user to access the settings area

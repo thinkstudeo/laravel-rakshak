@@ -2,10 +2,10 @@
 
 namespace Thinkstudeo\Rakshak\Tests\Feature;
 
-use Thinkstudeo\Rakshak\Role;
-use Thinkstudeo\Rakshak\Ability;
-use Thinkstudeo\Rakshak\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Thinkstudeo\Rakshak\Ability;
+use Thinkstudeo\Rakshak\Role;
+use Thinkstudeo\Rakshak\Tests\TestCase;
 
 class ManageRolesTest extends TestCase
 {

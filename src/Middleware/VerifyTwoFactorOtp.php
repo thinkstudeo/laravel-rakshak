@@ -4,9 +4,9 @@ namespace Thinkstudeo\Rakshak\Middleware;
 
 use Closure;
 use Illuminate\Support\Carbon;
-use Thinkstudeo\Rakshak\Rakshak;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Thinkstudeo\Rakshak\Rakshak;
 use Thinkstudeo\Rakshak\RakshakSetting;
 
 class VerifyTwoFactorOtp

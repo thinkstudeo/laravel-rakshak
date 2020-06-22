@@ -2,9 +2,9 @@
 
 namespace Thinkstudeo\Rakshak\Tests\Feature;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Schema;
 use Thinkstudeo\Rakshak\Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class InstallCommandTest extends TestCase
 {

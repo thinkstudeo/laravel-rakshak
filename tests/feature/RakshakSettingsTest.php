@@ -2,11 +2,11 @@
 
 namespace Thinkstudeo\Rakshak\Tests\Feature;
 
-use Thinkstudeo\Rakshak\Rakshak;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Cache;
+use Thinkstudeo\Rakshak\Rakshak;
 use Thinkstudeo\Rakshak\RakshakSetting;
 use Thinkstudeo\Rakshak\Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class RakshakSettingsTest extends TestCase
 {

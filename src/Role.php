@@ -2,8 +2,8 @@
 
 namespace Thinkstudeo\Rakshak;
 
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use Thinkstudeo\Rakshak\Traits\UuidAsPrimaryKey;
 
 class Role extends Model

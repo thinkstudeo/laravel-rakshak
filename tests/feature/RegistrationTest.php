@@ -3,11 +3,11 @@
 namespace Thinkstudeo\Rakshak\Tests\Feature;
 
 use App\User;
-use Thinkstudeo\Rakshak\Tests\TestCase;
-// use Thinkstudeo\Rakshak\Tests\Fixtures\User;
-use Illuminate\Support\Facades\Notification;
 use Illuminate\Auth\Notifications\VerifyEmail;
+// use Thinkstudeo\Rakshak\Tests\Fixtures\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Notification;
+use Thinkstudeo\Rakshak\Tests\TestCase;
 
 class RegistrationTest extends TestCase
 {

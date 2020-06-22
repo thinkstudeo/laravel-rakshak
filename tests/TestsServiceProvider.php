@@ -2,10 +2,10 @@
 
 namespace Thinkstudeo\Rakshak\Tests;
 
-use Thinkstudeo\Rakshak\Rakshak;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Thinkstudeo\Rakshak\Rakshak;
 
 class TestsServiceProvider extends ServiceProvider
 {

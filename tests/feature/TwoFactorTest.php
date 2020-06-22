@@ -2,13 +2,13 @@
 
 namespace Thinkstudeo\Rakshak\Tests\Feature;
 
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Artisan;
-use Thinkstudeo\Rakshak\Tests\TestCase;
-use App\Notifications\Rakshak\LoginOtpSms;
 use App\Notifications\Rakshak\LoginOtpMail;
-use Illuminate\Support\Facades\Notification;
+use App\Notifications\Rakshak\LoginOtpSms;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Notification;
+use Thinkstudeo\Rakshak\Tests\TestCase;
 
 class TwoFactorTest extends TestCase
 {

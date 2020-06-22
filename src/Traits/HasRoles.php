@@ -2,8 +2,8 @@
 
 namespace Thinkstudeo\Rakshak\Traits;
 
-use Thinkstudeo\Rakshak\Role;
 use Thinkstudeo\Rakshak\Ability;
+use Thinkstudeo\Rakshak\Role;
 
 trait HasRoles
 {

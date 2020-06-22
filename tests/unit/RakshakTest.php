@@ -2,9 +2,9 @@
 
 namespace Thinkstudeo\Rakshak\Tests\Unit;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Thinkstudeo\Rakshak\Rakshak;
 use Thinkstudeo\Rakshak\Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class RakshakTest extends TestCase
 {

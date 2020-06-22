@@ -2,15 +2,15 @@
 
 namespace Thinkstudeo\Rakshak\Tests\Feature;
 
-use Thinkstudeo\Rakshak\Role;
-use Illuminate\Support\Carbon;
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Facades\Artisan;
-use Thinkstudeo\Rakshak\Tests\TestCase;
-use Illuminate\Support\Facades\Notification;
-use Thinkstudeo\Rakshak\Tests\Fixtures\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Notification;
+use Thinkstudeo\Rakshak\Role;
 use Thinkstudeo\Rakshak\Tests\Fixtures\Notifications\TemporaryPasswordMail;
+use Thinkstudeo\Rakshak\Tests\Fixtures\User;
+use Thinkstudeo\Rakshak\Tests\TestCase;
 
 class UserManagement extends TestCase
 {

@@ -3,8 +3,8 @@
 namespace Thinkstudeo\Rakshak\Policies;
 
 use App\User;
-use Thinkstudeo\Rakshak\Ability;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Thinkstudeo\Rakshak\Ability;
 
 class AbilityPolicy
 {

@@ -2,9 +2,9 @@
 
 namespace Thinkstudeo\Rakshak\Tests\Feature;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Route;
 use Thinkstudeo\Rakshak\Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class RoleMiddlewareTest extends TestCase
 {

@@ -3,8 +3,8 @@
 namespace Thinkstudeo\Rakshak\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Thinkstudeo\Rakshak\Role;
 use Thinkstudeo\Rakshak\Ability;
+use Thinkstudeo\Rakshak\Role;
 
 class RolesController extends Controller
 {

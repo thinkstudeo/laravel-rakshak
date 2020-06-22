@@ -2,14 +2,14 @@
 
 namespace Thinkstudeo\Rakshak;
 
-use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\AliasLoader;
-use Thinkstudeo\Rakshak\Middleware\CheckRole;
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Route;
 use Thinkstudeo\Rakshak\Console\InstallCommand;
 use Thinkstudeo\Rakshak\Console\PublishCommand;
-use Thinkstudeo\Rakshak\Support\BladeDirectives;
+use Thinkstudeo\Rakshak\Middleware\CheckRole;
 use Thinkstudeo\Rakshak\Middleware\VerifyTwoFactorOtp;
-use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Thinkstudeo\Rakshak\Support\BladeDirectives;
 
 class RakshakServiceProvider extends ServiceProvider
 {

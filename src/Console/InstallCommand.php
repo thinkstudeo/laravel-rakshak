@@ -2,10 +2,10 @@
 
 namespace Thinkstudeo\Rakshak\Console;
 
-use Illuminate\Support\Str;
 use Illuminate\Console\Command;
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\Console\DetectsApplicationNamespace;
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Str;
 
 class InstallCommand extends Command
 {

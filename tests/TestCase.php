@@ -2,11 +2,11 @@
 
 namespace Thinkstudeo\Rakshak\Tests;
 
+use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use Thinkstudeo\Rakshak\Rakshak;
-use Thinkstudeo\Rakshak\Tests\Setup\TestViews;
 use Thinkstudeo\Rakshak\Tests\Setup\TestConfig;
 use Thinkstudeo\Rakshak\Tests\Setup\TestRoutes;
-use Orchestra\Testbench\TestCase as OrchestraTestCase;
+use Thinkstudeo\Rakshak\Tests\Setup\TestViews;
 
 class TestCase extends OrchestraTestCase
 {
